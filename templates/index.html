@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个性化推荐系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #f8f9fa;
+        }
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .nav-link:hover {
+            color: #007bff;
+        }
+        .sidebar .nav-link i {
+            margin-right: 0.5rem;
+        }
+        .main-content {
+            margin-left: 360px;
+            padding: 20px;
+        }
+        .result-section {
+            margin-top: 20px;
+            display: none;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .heatmap-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .heatmap-image {
+            max-width: 100%;
+            height: auto;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">个性化推荐系统</a>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">
+                                <i class="bi bi-house-door"></i>
+                                主页
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">
+                                <i class="bi bi-person"></i>
+                                用户管理
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-graph-up"></i>
+                                数据分析
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-gear"></i>
+                                系统设置
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="main-content">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center mb-4">用户分析</h5>
+                                <form id="analyzeForm">
+                                    <div class="mb-3">
+                                        <label for="userId" class="form-label">请输入用户ID</label>
+                                        <input type="text" class="form-control" id="userId" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">分析</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loading">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">正在分析中，请稍候...</p>
+                </div>
+
+                <div id="results" class="result-section">
+                    <h2 class="text-center mb-4">分析结果</h2>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h3>操作总结</h3>
+                                    <pre id="summary"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h3>用户画像</h3>
+                                    <pre id="profile"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h3>初始热力图</h3>
+                                    <div class="heatmap-container">
+                                        <img id="initialHeatmap" class="heatmap-image" alt="Initial Heatmap">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h3>更新后热力图</h3>
+                                    <div class="heatmap-container">
+                                        <img id="updatedHeatmap" class="heatmap-image" alt="Updated Heatmap">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h3>对比热力图</h3>
+                                    <div class="heatmap-container">
+                                        <img id="comparisonHeatmap" class="heatmap-image" alt="Comparison Heatmap">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h3>推荐内容</h3>
+                                    <div id="recommendations" class="recommendations-container">
+                                        <!-- 推荐内容将通过JavaScript动态添加 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#analyzeForm').on('submit', async function(e) {
+                e.preventDefault();
+
+                const userId = $('#userId').val().trim();
+                if (!userId) {
+                    alert('请输入用户ID');
+                    return;
+                }
+
+                const loading = $('.loading');
+                const results = $('#results');
+                const recommendations = $('#recommendations');
+
+                loading.show();
+                results.hide();
+
+                try {
+                    const response = await fetch('/analyze', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            user_id: userId
+                        })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        $('#summary').text(data.summary || '无操作记录');
+                        $('#profile').text(data.profile || '无用户画像');
+                        
+                        // 更新热力图
+                        if (data.images) {
+                            $('#initialHeatmap').attr('src', `/output/${data.images.initial}`);
+                            $('#updatedHeatmap').attr('src', `/output/${data.images.updated}`);
+                            $('#comparisonHeatmap').attr('src', `/output/${data.images.comparison}`);
+                        }
+                        
+                        // 显示推荐内容
+                        displayRecommendations(data.recommendations || []);
+                        
+                        results.show();
+                    } else {
+                        alert(data.error || '分析失败');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('请求失败，请重试');
+                } finally {
+                    loading.hide();
+                }
+            });
+
+            function displayRecommendations(recommendations) {
+                const container = $('#recommendations');
+                container.empty();
+                
+                recommendations.forEach(item => {
+                    const itemElement = $(`
+                        <div class="recommendation-item card mb-3" data-item-id="${item.id || ''}">
+                            <div class="card-body">
+                                ${item.image_url ? `
+                                    <img src="${item.image_url}" class="recommendation-image" alt="${item.name}">
+                                ` : ''}
+                                <h5 class="card-title">${item.name}</h5>
+                                <p class="card-text">${item.description}</p>
+                                <p class="text-muted">推荐理由：${item.reason}</p>
+                                <p class="text-muted">推荐分数：${item.score}</p>
+                                
+                                ${item.category_name === '电子产品' || item.category_name === '服装' || item.category_name === '食品' || item.category_name === '饮品' || item.category_name === '家居' ? `
+                                    <div class="product-interactions">
+                                        <button class="btn btn-primary" onclick="handleInteraction('${item.id || ''}', 'add_to_cart', 'product')">
+                                            <i class="bi bi-cart-plus"></i> 加入购物车
+                                        </button>
+                                        <button class="btn btn-success" onclick="handleInteraction('${item.id || ''}', 'purchase', 'product')">
+                                            <i class="bi bi-bag"></i> 立即购买
+                                        </button>
+                                    </div>
+                                ` : `
+                                    <div class="content-interactions">
+                                        <button class="btn btn-outline-primary" onclick="handleInteraction('${item.id || ''}', 'like', 'content')">
+                                            <i class="bi bi-heart"></i> 点赞
+                                        </button>
+                                        <button class="btn btn-outline-secondary" onclick="handleInteraction('${item.id || ''}', 'comment', 'content')">
+                                            <i class="bi bi-chat"></i> 评论
+                                        </button>
+                                        <button class="btn btn-outline-info" onclick="handleInteraction('${item.id || ''}', 'collect', 'content')">
+                                            <i class="bi bi-star"></i> 收藏
+                                        </button>
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                    `);
+                    container.append(itemElement);
+                });
+            }
+        });
+
+        function handleInteraction(itemId, interactionType, contentType) {
+            const userId = $('#userId').val().trim();
+            if (!userId) {
+                alert('请先输入用户ID');
+                return;
+            }
+            
+            fetch('/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    interaction_type: interactionType,
+                    content_type: contentType,
+                    item_id: itemId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('操作成功！');
+                    updateInteractionUI(itemId, interactionType, contentType);
+                } else {
+                    showToast('操作失败：' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('操作失败，请重试');
+            });
+        }
+
+        function updateInteractionUI(itemId, interactionType, contentType) {
+            const itemElement = $(`[data-item-id="${itemId}"]`);
+            if (!itemElement.length) return;
+
+            const button = itemElement.find(`button[onclick*="${interactionType}"]`);
+            
+            switch(interactionType) {
+                case 'like':
+                    button.toggleClass('active btn-primary').removeClass('btn-outline-primary');
+                    break;
+                case 'collect':
+                    button.toggleClass('active btn-info').removeClass('btn-outline-info');
+                    break;
+                case 'comment':
+                    // 显示评论输入框
+                    const commentForm = $(`
+                        <div class="comment-form mt-2">
+                            <textarea class="form-control mb-2" placeholder="请输入评论内容"></textarea>
+                            <button class="btn btn-primary btn-sm">提交评论</button>
+                        </div>
+                    `);
+                    itemElement.find('.content-interactions').after(commentForm);
+                    break;
+                case 'add_to_cart':
+                    showToast('已加入购物车');
+                    button.prop('disabled', true).text('已加入购物车');
+                    break;
+                case 'purchase':
+                    showToast('购买成功！');
+                    button.prop('disabled', true).text('已购买');
+                    break;
+            }
+        }
+
+        function showToast(message) {
+            const toast = $(`
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `);
+            
+            $('body').append(toast);
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

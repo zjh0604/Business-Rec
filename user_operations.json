@@ -1,0 +1,53 @@
+{
+    "operations": [
+        {
+            "user_id": "1",
+            "action": "Record thoughts, feelings or goals",
+            "detail": "Record 20 times of one's own thoughts, feelings or goals every 30 days",
+            "category": null,
+            "time": "2024-03-20T10:00:00Z"
+        },
+        {
+            "user_id": "1",
+            "action": "Install apps and follow social media accounts",
+            "detail": "Install 12 different types of applications and follow 15 different social media accounts",
+            "category": null,
+            "time": "2024-03-20T11:00:00Z"
+        },
+        {
+            "user_id": "1",
+            "action": "Enable privacy settings",
+            "detail": "Enable privacy settings in the mobile phone",
+            "category": null,
+            "time": "2024-03-20T12:00:00Z"
+        },
+        {
+            "user_id": "2",
+            "action": "Express objective views on social media",
+            "detail": "Express 20 objective and unbiased views on social media every 30 days",
+            "category": null,
+            "time": "2024-03-20T13:00:00Z"
+        },
+        {
+            "user_id": "2",
+            "action": "Use shared calendar or task management app",
+            "detail": "Use shared calendar or task management application 20 times every 30 days",
+            "category": null,
+            "time": "2024-03-20T14:00:00Z"
+        },
+        {
+            "user_id": "3",
+            "action": "Share creative works on social media",
+            "detail": "Share 20 times of one's own creative works on social media every month",
+            "category": null,
+            "time": "2024-03-20T15:00:00Z"
+        },
+        {
+            "user_id": "3",
+            "action": "Use learning app continuously",
+            "detail": "Use learning app continuously for 20 days within a month",
+            "category": null,
+            "time": "2024-03-20T16:00:00Z"
+        }
+    ]
+} 
