@@ -8,7 +8,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -26,6 +25,7 @@ wheels/
 *.egg
 
 # Virtual Environment
+myenv/
 venv/
 ENV/
 
@@ -35,12 +35,24 @@ ENV/
 *.swp
 *.swo
 
+# Logs
+*.log
+logs/
+
 # Database
 *.db
 *.sqlite3
 
-# Logs
-*.log
+# Output files
+output/
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# System files
+.DS_Store
+Thumbs.db
 
 # Local development settings
 .env
