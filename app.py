@@ -7,7 +7,7 @@ from db_operation import create_chroma_db, answer_without_chroma_db, answer_user
 from visualization import create_heatmap, create_comparison_heatmap
 from sohu_api import SohuGlobalAPI
 from my_qianfan_llm import llm
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template, current_app
 import logging
 from content_manager import content_manager
 from user_feedback import user_feedback
@@ -28,65 +28,11 @@ sohu_api = SohuGlobalAPI("https://api.sohuglobal.com")
 try:
     print("Attempting to login to Sohu API...")
     if not sohu_api.login(phone="admin", password="U9xbHDJUH1pmx9hk7nXbQQ=="):
-        print("Failed to login to Sohu API, using mock data")
-
-
-        # 添加一个模拟数据函数
-        def get_mock_recommendations():
-            return {
-                "data": [
-                    {
-                        "name": "示例商品1",
-                        "description": "这是一个示例商品描述",
-                        "imageUrl": "https://via.placeholder.com/300x200?text=示例商品1"
-                    },
-                    {
-                        "name": "示例商品2",
-                        "description": "这是另一个示例商品描述",
-                        "imageUrl": "https://via.placeholder.com/300x200?text=示例商品2"
-                    },
-                    {
-                        "name": "示例商品3",
-                        "description": "这是第三个示例商品描述",
-                        "imageUrl": "https://via.placeholder.com/300x200?text=示例商品3"
-                    }
-                ]
-            }
-
-
-        # 替换原来的 get_products_on_sale 方法
-        sohu_api.get_products_on_sale = get_mock_recommendations
+        print("Failed to login to Sohu API")
+        raise Exception("Failed to login to Sohu API")
 except Exception as e:
     print(f"Error during Sohu API initialization: {str(e)}")
-    print("Using mock data for recommendations")
-
-
-    # 添加一个模拟数据函数
-    def get_mock_recommendations():
-        return {
-            "data": [
-                {
-                    "name": "示例商品1",
-                    "description": "这是一个示例商品描述",
-                    "imageUrl": "https://via.placeholder.com/300x200?text=示例商品1"
-                },
-                {
-                    "name": "示例商品2",
-                    "description": "这是另一个示例商品描述",
-                    "imageUrl": "https://via.placeholder.com/300x200?text=示例商品2"
-                },
-                {
-                    "name": "示例商品3",
-                    "description": "这是第三个示例商品描述",
-                    "imageUrl": "https://via.placeholder.com/300x200?text=示例商品3"
-                }
-            ]
-        }
-
-
-    # 替换原来的 get_products_on_sale 方法
-    sohu_api.get_products_on_sale = get_mock_recommendations
-
+    raise e
 
 def extract_scores_from_text(text):
     """Extract scores from the text using regex"""
@@ -99,7 +45,6 @@ def extract_scores_from_text(text):
         value = int(match.group(2))
         scores[key] = value
     return scores
-
 
 def query_personality_score(user_id):
     """Query user personality scores from database"""
@@ -120,7 +65,6 @@ def query_personality_score(user_id):
         print(f"Error querying personality score: {str(e)}")
         return None
 
-
 def query_columns():
     """Query column names from database"""
     try:
@@ -134,7 +78,6 @@ def query_columns():
     except Exception as e:
         print(f"Error querying columns: {str(e)}")
         return []
-
 
 def query_user_data(user_id):
     """查询用户的行为数据
@@ -156,7 +99,6 @@ def query_user_data(user_id):
         print(f"Error querying user data: {str(e)}")
         return []
 
-
 def analyze_user_behavior(user_data, initial_scores):
     """分析用户行为并更新性格分数
 
@@ -174,7 +116,6 @@ def analyze_user_behavior(user_data, initial_scores):
     except Exception as e:
         print(f"Error analyzing user behavior: {str(e)}")
         return initial_scores
-
 
 # 模拟商品数据
 MOCK_PRODUCTS = [
@@ -229,43 +170,17 @@ def generate_recommendations(user_id, personality_data):
     """生成个性化推荐"""
     try:
         # 使用 ContentManager 获取推荐
-        recommendations = content_manager.get_recommendations(personality_data, limit=3)
+        recommendations = content_manager.get_recommendations(personality_data, limit=5)
         
         if not recommendations:
-            logger.warning("No recommendations found, using mock data")
-            return generate_mock_recommendations(personality_data)
+            logger.warning("No recommendations found")
+            return []
             
         return recommendations
             
     except Exception as e:
-        logger.error(f"Error generating recommendations: {str(e)}, using mock data")
-        return generate_mock_recommendations(personality_data)
-
-def generate_mock_recommendations(personality_data):
-    """生成模拟推荐数据"""
-    recommendations = []
-    for product in MOCK_PRODUCTS:
-        # 根据用户性格特征生成推荐理由
-        reason = f"根据您的性格特征，这款{product['name']}非常适合您。"
-        if "外向" in personality_data and personality_data["外向"] > 0.7:
-            reason += "它可以帮助您在社交场合展现个性。"
-        if "创新" in personality_data and personality_data["创新"] > 0.7:
-            reason += "它的创新设计能满足您对新鲜事物的追求。"
-        
-        recommendations.append({
-            "name": product["name"],
-            "description": product["description"],
-            "reason": reason,
-            "score": 0.8 + (datetime.now().microsecond % 20) / 100,  # 随机分数
-            "image_url": product["image_url"],
-            "category_id": product["category_id"],
-            "category_name": product["category_name"]
-        })
-    
-    # 按分数排序并返回前3个推荐
-    recommendations.sort(key=lambda x: x["score"], reverse=True)
-    return recommendations[:3]
-
+        logger.error(f"Error generating recommendations: {str(e)}")
+        return []
 
 def get_user_operations(user_id):
     """从JSON文件中获取指定用户的操作日志
@@ -299,120 +214,126 @@ def get_user_operations(user_id):
         # 如果出错，返回空操作日志
         return {"operations": []}
 
-
 def process_user_analysis(user_id):
     """Process user analysis and return results"""
-    profile = query_personality_score(user_id)
+    try:
+        profile = query_personality_score(user_id)
 
-    if profile is None:
+        if profile is None:
+            return {
+                'success': False,
+                'error': f'未找到用户ID {user_id} 的性格数据，请确保该用户已存在于数据库中。'
+            }
+
+        # Create initial personality scores dictionary
+        initial_scores = {}
+        columns = query_columns()
+        print(f"Processing profile: {profile}")  # 添加日志
+        print(f"Using columns: {columns}")  # 添加日志
+
+        for col, val in zip(columns, profile):
+            if col != 'id':  # Skip the id column
+                initial_scores[col] = val
+
+        # 获取用户特定的操作日志
+        user_operation_diary = json.dumps(get_user_operations(user_id), ensure_ascii=False)
+
+        # 构建用户画像字符串
+        user_profile = f"用户的三魂六魄画像：id = {user_id}"
+        for col, val in zip(columns, profile):
+            user_profile += f", {col} = {val}"
+        user_profile += "."
+
+        # 生成操作总结
+        prompt_diary = "以上是该用户的操作日志，请按以下格式进行总结：'用户xx天内操作了xx次xx'...注意不要生成其他的信息，不需要解释你的回答。"
+        result_summary = ''.join(answer_without_chroma_db(user_operation_diary + prompt_diary))
+
+        # 生成新的画像
+        prompt_profile = """
+        请根据用户的操作日志，和旧的用户画像，覆盖用户画像分数。你必须严格按照参考内容的打分标准进行打分。
+        输出格式为：用户的三魂七魄画像：\n
+        id = xxx\n
+        旧的xxx = xxx, 旧的xxx = xxx,
+        新的xxx = xxx, 新的xxx = xxx,
+        xxx变化了xxx分, xxx变化了xxx分.
+        """
+
+        result_profile = ''.join(
+            answer_user_query("rag_shqp",
+                            "用户id：" + user_id + "\n用户画像：" +
+                            user_profile + result_summary + prompt_profile))
+
+        # 提取新分数
+        new_scores = extract_scores_from_text(result_profile)
+
+        # 确保新分数包含所有原始特征
+        for trait in initial_scores.keys():
+            if trait not in new_scores:
+                new_scores[trait] = initial_scores[trait]
+
+        # 生成热力图
+        create_heatmap(initial_scores, f"Initial Personality Heatmap for User {user_id}",
+                    f"initial_heatmap_{user_id}.png")
+        create_heatmap(new_scores, f"Updated Personality Heatmap for User {user_id}",
+                    f"updated_heatmap_{user_id}.png")
+        create_comparison_heatmap(initial_scores, new_scores,
+                                f"Personality Scores Comparison for User {user_id}",
+                                f"comparison_heatmap_{user_id}.png")
+
+        # 获取推荐内容
+        recommended_items = generate_recommendations(user_id, new_scores)
+
         return {
-            'error': f'未找到用户ID {user_id} 的性格数据，请确保该用户已存在于数据库中。'
+            'success': True,
+            'summary': result_summary,
+            'profile': result_profile,
+            'recommendations': recommended_items,
+            'images': {
+                'initial': f"initial_heatmap_{user_id}.png",
+                'updated': f"updated_heatmap_{user_id}.png",
+                'comparison': f"comparison_heatmap_{user_id}.png"
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error in process_user_analysis: {str(e)}")
+        return {
+            'success': False,
+            'error': str(e)
         }
 
-    # Create initial personality scores dictionary
-    initial_scores = {}
-    columns = query_columns()
-    print(f"Processing profile: {profile}")  # 添加日志
-    print(f"Using columns: {columns}")  # 添加日志
+@api.route('/')
+def index():
+    """显示主页"""
+    logger.debug("Accessing index page")
+    return render_template('index.html')
 
-    for col, val in zip(columns, profile):
-        if col != 'id':  # Skip the id column
-            initial_scores[col] = val
-
-    # 获取用户特定的操作日志
-    user_operation_diary = json.dumps(get_user_operations(user_id), ensure_ascii=False)
-
-    # 构建用户画像字符串
-    user_profile = f"用户的三魂六魄画像：id = {user_id}"
-    for col, val in zip(columns, profile):
-        user_profile += f", {col} = {val}"
-    user_profile += "."
-
-    # 生成操作总结
-    prompt_diary = "以上是该用户的操作日志，请按以下格式进行总结：'用户xx天内操作了xx次xx'...注意不要生成其他的信息，不需要解释你的回答。"
-    result_summary = ''.join(answer_without_chroma_db(user_operation_diary + prompt_diary))
-
-    # 生成新的画像
-    prompt_profile = """
-    请根据用户的操作日志，和旧的用户画像，覆盖用户画像分数。你必须严格按照参考内容的打分标准进行打分。
-    输出格式为：用户的三魂七魄画像：\n
-    id = xxx\n
-    旧的xxx = xxx, 旧的xxx = xxx,
-    新的xxx = xxx, 新的xxx = xxx,
-    xxx变化了xxx分, xxx变化了xxx分.
-    """
-
-    result_profile = ''.join(
-        answer_user_query("rag_shqp",
-                          "用户id：" + user_id + "\n用户画像：" +
-                          user_profile + result_summary + prompt_profile))
-
-    # 提取新分数
-    new_scores = extract_scores_from_text(result_profile)
-
-    # 确保新分数包含所有原始特征
-    for trait in initial_scores.keys():
-        if trait not in new_scores:
-            new_scores[trait] = initial_scores[trait]
-
-    # 生成热力图
-    create_heatmap(initial_scores, f"Initial Personality Heatmap for User {user_id}",
-                   f"initial_heatmap_{user_id}.png")
-    create_heatmap(new_scores, f"Updated Personality Heatmap for User {user_id}",
-                   f"updated_heatmap_{user_id}.png")
-    create_comparison_heatmap(initial_scores, new_scores,
-                              f"Personality Scores Comparison for User {user_id}",
-                              f"comparison_heatmap_{user_id}.png")
-
-    # 获取推荐内容
-    recommended_items = generate_recommendations(user_id, new_scores)
-
-
-    return {
-        'summary': result_summary,
-        'profile': result_profile,
-        'recommendations': recommended_items,
-        'images': {
-            'initial': f"initial_heatmap_{user_id}.png",
-            'updated': f"updated_heatmap_{user_id}.png",
-            'comparison': f"comparison_heatmap_{user_id}.png"
-        }
-    }
-
+@api.route('/users')
+def users():
+    """显示用户管理页面"""
+    logger.debug("Accessing user management page")
+    return render_template('users.html')
 
 @api.route('/analyze', methods=['POST'])
 def analyze():
-    data = request.get_json()
-    user_id = data.get('user_id')
-    print(f"Received analysis request for user_id: {user_id}")
-
-    if not user_id:
-        print("Error: No user_id provided in request")
-        return jsonify({
-            'success': False,
-            'error': 'No user_id provided'
-        })
-
+    """处理用户分析请求"""
     try:
-        # 获取用户性格分数
-        personality_data = query_personality_score(user_id)
-        if not personality_data:
-            print(f"Error: No personality data found for user_id: {user_id}")
+        data = request.get_json()
+        user_id = data.get('user_id')
+        logger.info(f"Received analysis request for user_id: {user_id}")
+
+        if not user_id:
+            logger.warning("No user_id provided in request")
             return jsonify({
                 'success': False,
-                'error': 'No personality data found for user'
+                'error': 'No user_id provided'
             })
 
-        # 获取推荐内容
-        recommendations = generate_recommendations(user_id, personality_data)
-
-        return jsonify({
-            'success': True,
-            'recommendations': recommendations
-        })
+        result = process_user_analysis(user_id)
+        logger.info(f"Analysis completed for user_id: {user_id}")
+        return jsonify(result)
 
     except Exception as e:
-        print(f"Error processing analysis: {str(e)}")
+        logger.error(f"Error processing analysis: {str(e)}")
         return jsonify({
             'success': False,
             'error': str(e)
@@ -420,37 +341,107 @@ def analyze():
 
 @api.route('/feedback', methods=['POST'])
 def handle_feedback():
-    """处理用户反馈"""
+    """处理用户交互反馈"""
     try:
         data = request.get_json()
+        if not data:
+            logger.error("No JSON data received")
+            return jsonify({
+                'success': False,
+                'error': 'No data provided'
+            }), 400
+            
+        logger.debug(f"Received feedback data: {data}")
+        
         user_id = data.get('user_id')
+        content_id = data.get('item_id')
         interaction_type = data.get('interaction_type')
         content_type = data.get('content_type')
-
-        if not all([user_id, interaction_type, content_type]):
+        
+        logger.debug(f"Extracted data - user_id: {user_id}, content_id: {content_id}, "
+                    f"interaction_type: {interaction_type}, content_type: {content_type}")
+        
+        if not all([user_id, content_id, interaction_type, content_type]):
+            missing_fields = [field for field, value in {
+                'user_id': user_id,
+                'item_id': content_id,
+                'interaction_type': interaction_type,
+                'content_type': content_type
+            }.items() if not value]
+            
+            error_msg = f"Missing required parameters: {', '.join(missing_fields)}"
+            logger.warning(error_msg)
             return jsonify({
                 'success': False,
-                'error': 'Missing required parameters'
-            })
+                'error': error_msg
+            }), 400
+        
+        success = user_feedback.record_interaction(
+            user_id=user_id,
+            content_id=content_id,
+            interaction_type=interaction_type,
+            content_type=content_type
+        )
+        
+        if success:
+            response_data = {
+                'success': True,
+                'message': 'Interaction recorded successfully'
+            }
+            logger.info(f"Successfully recorded interaction for user {user_id}")
+            return jsonify(response_data)
+        else:
+            error_msg = f"Failed to record interaction for user {user_id}"
+            logger.error(error_msg)
+            return jsonify({
+                'success': False,
+                'error': error_msg
+            }), 500
+            
+    except Exception as e:
+        error_msg = f"Error handling feedback: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': error_msg
+        }), 500
 
-        # 更新用户性格分数
-        if user_feedback.update_personality_score(user_id, interaction_type, content_type):
+@api.route('/data_update')
+def data_update():
+    """显示数据更新页面"""
+    return render_template('data_update.html')
+
+@api.route('/update_user_data', methods=['POST'])
+def update_user_data():
+    """更新用户数据"""
+    try:
+        logger.debug("Starting user data update")
+        
+        # 更新性格分数
+        if user_feedback.update_personality_scores():
+            # 获取分数变化
+            changes = user_feedback.get_score_changes()
+            logger.info(f"User data updated successfully. Changes: {changes}")
+            
             return jsonify({
                 'success': True,
-                'message': 'Feedback processed successfully'
+                'changes': changes,
+                'message': 'User data updated successfully'
             })
         else:
+            error_msg = "Failed to update user data"
+            logger.error(error_msg)
             return jsonify({
                 'success': False,
-                'error': 'Failed to process feedback'
-            })
-
+                'error': error_msg
+            }), 500
+            
     except Exception as e:
-        logger.error(f"Error processing feedback: {str(e)}")
+        logger.error(f"Error updating user data: {str(e)}", exc_info=True)
         return jsonify({
             'success': False,
             'error': str(e)
-        })
+        }), 500
 
 @api.route('/user_behavior/<user_id>', methods=['GET'])
 def get_user_behavior(user_id):

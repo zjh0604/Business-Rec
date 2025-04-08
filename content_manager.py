@@ -186,80 +186,126 @@ class ContentManager:
             logger.error(f"Error generating recommendation reason: {str(e)}")
             return f"根据您的性格特征，这个{item_type}很适合您"
 
-    def get_recommendations(self, personality_data, limit=3):
+    def get_recommendations(self, personality_data, limit=5):
         """根据用户性格特征获取推荐内容"""
         try:
-            # 构建查询文本
-            query_text = "寻找适合以下性格特征的内容：\n"
-            for trait, score in personality_data.items():
-                query_text += f"{trait}: {score}\n"
-
+            logger.debug(f"Received personality data: {personality_data}")
+            
+            # 检查数据库中的内容数量
+            product_count = self.product_collection.count()
+            content_count = self.content_collection.count()
+            logger.debug(f"Database content count - Products: {product_count}, Contents: {content_count}")
+            
+            if product_count == 0 and content_count == 0:
+                logger.warning("No content found in database")
+                return []
+            
+            # 找出显著的性格特征（分数高于平均值的特征）
+            valid_scores = [score for score in personality_data.values() if score is not None]
+            if not valid_scores:
+                logger.warning("No valid personality scores found")
+                return []
+            
+            avg_score = sum(valid_scores) / len(valid_scores)
+            significant_traits = {trait: score for trait, score in personality_data.items() 
+                                if score is not None and score > avg_score}
+            
+            if not significant_traits:
+                logger.warning("No significant traits found")
+                return []
+            
+            # 构建综合查询文本
+            query_text = "适合以下性格特征的用户喜欢的内容和商品：\n"
+            for trait, score in significant_traits.items():
+                query_text += f"{trait} = {score}\n"
+            
+            logger.debug(f"Query text: {query_text}")
+            
+            recommendations = []
+            
             # 从商品集合中查询
             product_results = self.product_collection.query(
                 query_texts=[query_text],
                 n_results=limit
             )
-
+            
             # 从内容集合中查询
             content_results = self.content_collection.query(
                 query_texts=[query_text],
                 n_results=limit
             )
-
-            # 合并结果
-            recommendations = []
             
             # 处理商品推荐
             if product_results and product_results['metadatas']:
                 for metadata in product_results['metadatas'][0]:
-                    item_info = {
-                        "name": str(metadata.get("name", "")),
-                        "description": str(metadata.get("description", "")),
-                        "category": str(metadata.get("category", "")),
-                        "price": float(metadata.get("price", 0))
-                    }
-                    
-                    # 生成个性化的推荐理由
-                    reason = self._generate_recommendation_reason("商品", item_info, personality_data)
-                    
-                    recommendations.append({
-                        "name": item_info["name"],
-                        "description": item_info["description"],
-                        "reason": reason,
-                        "score": 0.9,  # 这里可以根据实际相似度计算分数
-                        "image_url": str(metadata.get("image_url", "")),
-                        "type": "product",
-                        "price": item_info["price"]
-                    })
-
+                    try:
+                        item_info = {
+                            "name": str(metadata.get("name", "")),
+                            "description": str(metadata.get("description", "")),
+                            "category": str(metadata.get("category", "")),
+                            "price": float(metadata.get("price", 0))
+                        }
+                        
+                        # 生成推荐理由，关联显著性格特征
+                        reason = self._generate_recommendation_reason("商品", item_info, significant_traits)
+                        
+                        recommendations.append({
+                            "id": str(metadata.get("id", "")),
+                            "name": item_info["name"],
+                            "description": item_info["description"],
+                            "reason": reason,
+                            "score": float(metadata.get("score", 0.8)),
+                            "image_url": str(metadata.get("image_url", "")),
+                            "type": "product",
+                            "price": item_info["price"],
+                            "significant_traits": list(significant_traits.keys())
+                        })
+                    except Exception as e:
+                        logger.error(f"Error processing product metadata: {str(e)}")
+                        continue
+            
             # 处理内容推荐
             if content_results and content_results['metadatas']:
                 for metadata in content_results['metadatas'][0]:
-                    item_info = {
-                        "title": str(metadata.get("title", "")),
-                        "description": str(metadata.get("description", "")),
-                        "type": str(metadata.get("type", "")),
-                        "view_count": int(metadata.get("view_count", 0)),
-                        "praise_count": int(metadata.get("praise_count", 0))
-                    }
-                    
-                    # 生成个性化的推荐理由
-                    reason = self._generate_recommendation_reason("内容", item_info, personality_data)
-                    
-                    recommendations.append({
-                        "name": item_info["title"],
-                        "description": item_info["description"],
-                        "reason": reason,
-                        "score": 0.85,  # 这里可以根据实际相似度计算分数
-                        "image_url": str(metadata.get("image_url", "")),
-                        "type": item_info["type"].lower(),
-                        "view_count": item_info["view_count"],
-                        "praise_count": item_info["praise_count"]
-                    })
-
-            # 按分数排序
-            recommendations.sort(key=lambda x: x["score"], reverse=True)
-            return recommendations[:limit]
+                    try:
+                        item_info = {
+                            "title": str(metadata.get("title", "")),
+                            "description": str(metadata.get("description", "")),
+                            "type": str(metadata.get("type", "")),
+                            "view_count": int(metadata.get("view_count", 0)),
+                            "praise_count": int(metadata.get("praise_count", 0))
+                        }
+                        
+                        # 生成推荐理由，关联显著性格特征
+                        reason = self._generate_recommendation_reason("内容", item_info, significant_traits)
+                        
+                        recommendations.append({
+                            "id": str(metadata.get("id", "")),
+                            "name": item_info["title"],
+                            "description": item_info["description"],
+                            "reason": reason,
+                            "score": float(metadata.get("score", 0.8)),
+                            "image_url": str(metadata.get("image_url", "")),
+                            "type": item_info["type"].lower(),
+                            "view_count": item_info["view_count"],
+                            "praise_count": item_info["praise_count"],
+                            "significant_traits": list(significant_traits.keys())
+                        })
+                    except Exception as e:
+                        logger.error(f"Error processing content metadata: {str(e)}")
+                        continue
+            
+            # 按分数排序并去重
+            seen = set()
+            unique_recommendations = []
+            for rec in sorted(recommendations, key=lambda x: x["score"], reverse=True):
+                key = (rec["name"], rec["type"])
+                if key not in seen:
+                    seen.add(key)
+                    unique_recommendations.append(rec)
+            
+            logger.debug(f"Final recommendations count: {len(unique_recommendations)}")
+            return unique_recommendations[:limit]
 
         except Exception as e:
             logger.error(f"Error getting recommendations: {str(e)}")

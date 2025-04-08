@@ -66,12 +66,98 @@
             padding: 15px;
             border-radius: 5px;
         }
+        .recommendation-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .traits {
+            margin: 10px 0;
+        }
+        .trait {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 4px 8px;
+            margin: 0 5px 5px 0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .actions {
+            margin-top: 15px;
+        }
+        .action-btn {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            background-color: #0056b3;
+        }
+        .system-settings {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+        .update-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .update-btn:hover {
+            background-color: #218838;
+        }
+        .personality-changes {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .changes-list {
+            margin-top: 10px;
+        }
+        .change-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .change-item:last-child {
+            border-bottom: none;
+        }
+        .change-trait {
+            font-weight: bold;
+        }
+        .change-value {
+            color: #28a745;
+        }
+        .change-value.negative {
+            color: #dc3545;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">个性化推荐系统</a>
+            <div class="d-flex">
+                <button class="btn btn-outline-light me-2" onclick="updateUserData()">
+                    <i class="bi bi-arrow-clockwise"></i> 更新数据
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -99,7 +185,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/data_update">
                                 <i class="bi bi-gear"></i>
                                 系统设置
                             </a>
@@ -210,6 +296,61 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 推荐内容部分 -->
+                <div class="recommendations">
+                    <h2>为您推荐</h2>
+                    <div class="recommendation-list">
+                        {% for item in recommendations %}
+                        <div class="recommendation-item card mb-3" data-item-id="{{ item.id }}">
+                            <div class="card-body">
+                                {% if item.image_url %}
+                                <img src="{{ item.image_url }}" class="recommendation-image" alt="{{ item.name }}">
+                                {% endif %}
+                                <h5 class="card-title">{{ item.name }}</h5>
+                                <p class="card-text">{{ item.description }}</p>
+                                <p class="text-muted">推荐理由：{{ item.reason }}</p>
+                                <p class="text-muted">推荐分数：{{ item.score }}</p>
+                                <p class="text-muted">性格特征：{{ item.trait }}</p>
+                                
+                                {% if item.type == 'product' %}
+                                <div class="product-interactions">
+                                    <button class="btn btn-primary" onclick="handleInteraction('{{ item.id }}', 'add_to_cart', 'product')">
+                                        <i class="bi bi-cart-plus"></i> 加入购物车
+                                    </button>
+                                    <button class="btn btn-success" onclick="handleInteraction('{{ item.id }}', 'purchase', 'product')">
+                                        <i class="bi bi-bag"></i> 立即购买
+                                    </button>
+                                </div>
+                                {% else %}
+                                <div class="content-interactions">
+                                    <button class="btn btn-outline-primary" onclick="handleInteraction('{{ item.id }}', 'like', 'content')">
+                                        <i class="bi bi-heart"></i> 点赞
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="handleInteraction('{{ item.id }}', 'comment', 'content')">
+                                        <i class="bi bi-chat"></i> 评论
+                                    </button>
+                                    <button class="btn btn-outline-info" onclick="handleInteraction('{{ item.id }}', 'collect', 'content')">
+                                        <i class="bi bi-star"></i> 收藏
+                                    </button>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- 添加系统设置按钮 -->
+                <div class="system-settings">
+                    <button class="update-btn" onclick="updateUserData()">更新用户数据</button>
+                </div>
+
+                <!-- 添加用户数据更新后的变化显示 -->
+                <div class="personality-changes" style="display: none;">
+                    <h3>性格特征变化</h3>
+                    <div class="changes-list"></div>
+                </div>
             </main>
         </div>
     </div>
@@ -223,7 +364,7 @@
 
                 const userId = $('#userId').val().trim();
                 if (!userId) {
-                    alert('请输入用户ID');
+                    showToast('请输入用户ID');
                     return;
                 }
 
@@ -246,6 +387,7 @@
                     });
 
                     const data = await response.json();
+                    console.log('Analysis response:', data);
                     
                     if (data.success) {
                         $('#summary').text(data.summary || '无操作记录');
@@ -253,9 +395,9 @@
                         
                         // 更新热力图
                         if (data.images) {
-                            $('#initialHeatmap').attr('src', `/output/${data.images.initial}`);
-                            $('#updatedHeatmap').attr('src', `/output/${data.images.updated}`);
-                            $('#comparisonHeatmap').attr('src', `/output/${data.images.comparison}`);
+                            $('#initialHeatmap').attr('src', `/static/output/${data.images.initial}`);
+                            $('#updatedHeatmap').attr('src', `/static/output/${data.images.updated}`);
+                            $('#comparisonHeatmap').attr('src', `/static/output/${data.images.comparison}`);
                         }
                         
                         // 显示推荐内容
@@ -263,11 +405,11 @@
                         
                         results.show();
                     } else {
-                        alert(data.error || '分析失败');
+                        showToast(data.error || '分析失败');
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('请求失败，请重试');
+                    showToast('请求失败，请重试');
                 } finally {
                     loading.hide();
                 }
@@ -276,6 +418,11 @@
             function displayRecommendations(recommendations) {
                 const container = $('#recommendations');
                 container.empty();
+                
+                if (!recommendations || recommendations.length === 0) {
+                    container.html('<div class="alert alert-info">暂无推荐内容</div>');
+                    return;
+                }
                 
                 recommendations.forEach(item => {
                     const itemElement = $(`
@@ -288,8 +435,9 @@
                                 <p class="card-text">${item.description}</p>
                                 <p class="text-muted">推荐理由：${item.reason}</p>
                                 <p class="text-muted">推荐分数：${item.score}</p>
+                                <p class="text-muted">性格特征：${item.trait}</p>
                                 
-                                ${item.category_name === '电子产品' || item.category_name === '服装' || item.category_name === '食品' || item.category_name === '饮品' || item.category_name === '家居' ? `
+                                ${item.type === 'product' ? `
                                     <div class="product-interactions">
                                         <button class="btn btn-primary" onclick="handleInteraction('${item.id || ''}', 'add_to_cart', 'product')">
                                             <i class="bi bi-cart-plus"></i> 加入购物车
@@ -322,42 +470,68 @@
         function handleInteraction(itemId, interactionType, contentType) {
             const userId = $('#userId').val().trim();
             if (!userId) {
-                alert('请先输入用户ID');
+                showToast('请先输入用户ID');
                 return;
             }
+            
+            const data = {
+                user_id: userId,
+                item_id: itemId,
+                interaction_type: interactionType,
+                content_type: contentType
+            };
+            
+            console.log('Sending interaction:', data);
             
             fetch('/feedback', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify({
-                    user_id: userId,
-                    interaction_type: interactionType,
-                    content_type: contentType,
-                    item_id: itemId
-                })
+                body: JSON.stringify(data)
             })
-            .then(response => response.json())
+            .then(async response => {
+                let responseData;
+                try {
+                    responseData = await response.json();
+                    console.log('Response status:', response.status, 'Response data:', responseData);
+                } catch (error) {
+                    console.error('Error parsing response:', error);
+                    throw new Error('无法解析服务器响应');
+                }
+                
+                if (!response.ok) {
+                    throw new Error(responseData.error || `请求失败: ${response.status}`);
+                }
+                return responseData;
+            })
             .then(data => {
                 if (data.success) {
                     showToast('操作成功！');
                     updateInteractionUI(itemId, interactionType, contentType);
                 } else {
-                    showToast('操作失败：' + data.error);
+                    showToast('操作失败：' + (data.error || '未知错误'));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showToast('操作失败，请重试');
+                showToast('操作失败：' + error.message);
             });
         }
 
         function updateInteractionUI(itemId, interactionType, contentType) {
             const itemElement = $(`[data-item-id="${itemId}"]`);
-            if (!itemElement.length) return;
+            if (!itemElement.length) {
+                console.warn('Item element not found:', itemId);
+                return;
+            }
 
             const button = itemElement.find(`button[onclick*="${interactionType}"]`);
+            if (!button.length) {
+                console.warn('Interaction button not found:', interactionType);
+                return;
+            }
             
             switch(interactionType) {
                 case 'like':
@@ -368,13 +542,15 @@
                     break;
                 case 'comment':
                     // 显示评论输入框
-                    const commentForm = $(`
-                        <div class="comment-form mt-2">
-                            <textarea class="form-control mb-2" placeholder="请输入评论内容"></textarea>
-                            <button class="btn btn-primary btn-sm">提交评论</button>
-                        </div>
-                    `);
-                    itemElement.find('.content-interactions').after(commentForm);
+                    if (!itemElement.find('.comment-form').length) {
+                        const commentForm = $(`
+                            <div class="comment-form mt-2">
+                                <textarea class="form-control mb-2" placeholder="请输入评论内容"></textarea>
+                                <button class="btn btn-primary btn-sm">提交评论</button>
+                            </div>
+                        `);
+                        itemElement.find('.content-interactions').after(commentForm);
+                    }
                     break;
                 case 'add_to_cart':
                     showToast('已加入购物车');
@@ -403,6 +579,80 @@
             setTimeout(() => {
                 toast.remove();
             }, 3000);
+        }
+
+        function showPersonalityChanges(changes) {
+            const changesContainer = document.querySelector('.personality-changes');
+            const changesList = document.querySelector('.changes-list');
+            
+            // 清空现有内容
+            changesList.innerHTML = '';
+            
+            // 添加变化项
+            for (const [trait, change] of Object.entries(changes)) {
+                const changeItem = document.createElement('div');
+                changeItem.className = 'change-item';
+                
+                const traitSpan = document.createElement('span');
+                traitSpan.className = 'change-trait';
+                traitSpan.textContent = trait;
+                
+                const valueSpan = document.createElement('span');
+                valueSpan.className = `change-value ${change < 0 ? 'negative' : ''}`;
+                valueSpan.textContent = `${change > 0 ? '+' : ''}${change}`;
+                
+                changeItem.appendChild(traitSpan);
+                changeItem.appendChild(valueSpan);
+                changesList.appendChild(changeItem);
+            }
+            
+            // 显示变化容器
+            changesContainer.style.display = 'block';
+        }
+
+        function updateUserData() {
+            const loading = $('.loading');
+            const userChanges = $('#userChanges');
+            
+            loading.show();
+            userChanges.empty();
+            
+            fetch('/update_user_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(async response => {
+                const data = await response.json();
+                console.log('Response status:', response.status, 'Response data:', data);
+                
+                if (!response.ok) {
+                    throw new Error(data.error || `HTTP error! status: ${response.status}`);
+                }
+                return data;
+            })
+            .then(data => {
+                if (data.success) {
+                    if (data.changes) {
+                        showPersonalityChanges(data.changes);
+                    }
+                    showToast('数据更新成功！');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    showToast('更新失败：' + (data.error || '未知错误'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('更新失败：' + error.message);
+            })
+            .finally(() => {
+                loading.hide();
+            });
         }
     </script>
 </body>
