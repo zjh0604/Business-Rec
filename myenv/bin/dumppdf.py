@@ -1,4 +1,4 @@
-#!/home/ubuntu/new/myenv/bin/python3
+#!/home/ubuntu/newrec/myenv/bin/python3
 """Extract pdf structure in XML format"""
 import logging
 import os.path

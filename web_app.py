@@ -6,6 +6,7 @@ import socket
 import logging
 import sqlite3
 import json
+from user_feedback import user_feedback
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
@@ -305,6 +306,105 @@ def get_recent_changes(user_id):
         })
     finally:
         conn.close()
+
+@app.route('/feedback', methods=['POST'])
+def handle_feedback():
+    """处理用户交互反馈"""
+    try:
+        data = request.get_json()
+        if not data:
+            logger.error("No JSON data received")
+            return jsonify({
+                'success': False,
+                'error': 'No data provided'
+            }), 400
+            
+        logger.debug(f"Received feedback data: {data}")
+        
+        user_id = data.get('user_id')
+        content_id = data.get('item_id')
+        interaction_type = data.get('interaction_type')
+        content_type = data.get('content_type')
+        
+        logger.debug(f"Extracted data - user_id: {user_id}, content_id: {content_id}, "
+                    f"interaction_type: {interaction_type}, content_type: {content_type}")
+        
+        if not all([user_id, content_id, interaction_type, content_type]):
+            missing_fields = [field for field, value in {
+                'user_id': user_id,
+                'item_id': content_id,
+                'interaction_type': interaction_type,
+                'content_type': content_type
+            }.items() if not value]
+            
+            error_msg = f"Missing required parameters: {', '.join(missing_fields)}"
+            logger.warning(error_msg)
+            return jsonify({
+                'success': False,
+                'error': error_msg
+            }), 400
+        
+        success = user_feedback.record_interaction(
+            user_id=user_id,
+            content_id=content_id,
+            interaction_type=interaction_type,
+            content_type=content_type
+        )
+        
+        if success:
+            response_data = {
+                'success': True,
+                'message': 'Interaction recorded successfully'
+            }
+            logger.info(f"Successfully recorded interaction for user {user_id}")
+            return jsonify(response_data)
+        else:
+            error_msg = f"Failed to record interaction for user {user_id}"
+            logger.error(error_msg)
+            return jsonify({
+                'success': False,
+                'error': error_msg
+            }), 500
+            
+    except Exception as e:
+        error_msg = f"Error handling feedback: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': error_msg
+        }), 500
+
+@app.route('/update_user_data', methods=['POST'])
+def update_user_data():
+    """更新用户数据"""
+    try:
+        logger.debug("Starting user data update")
+        
+        # 更新性格分数
+        if user_feedback.update_personality_scores():
+            # 获取分数变化
+            changes = user_feedback.get_score_changes()
+            logger.info(f"User data updated successfully. Changes: {changes}")
+            
+            return jsonify({
+                'success': True,
+                'changes': changes,
+                'message': 'User data updated successfully'
+            })
+        else:
+            error_msg = "Failed to update user data"
+            logger.error(error_msg)
+            return jsonify({
+                'success': False,
+                'error': error_msg
+            }), 500
+            
+    except Exception as e:
+        logger.error(f"Error updating user data: {str(e)}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 def get_server_info():
     try:

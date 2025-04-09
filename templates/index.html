@@ -311,7 +311,7 @@
                                 <p class="card-text">{{ item.description }}</p>
                                 <p class="text-muted">推荐理由：{{ item.reason }}</p>
                                 <p class="text-muted">推荐分数：{{ item.score }}</p>
-                                <p class="text-muted">性格特征：{{ item.trait }}</p>
+                                <p class="text-muted">性格特征：{{ item.significant_traits[0] if item.significant_traits else 'None' }}</p>
                                 
                                 {% if item.type == 'product' %}
                                 <div class="product-interactions">
@@ -355,9 +355,31 @@
         </div>
     </div>
 
+    <div class="modal fade" id="personalityChangesModal" tabindex="-1" aria-labelledby="personalityChangesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="personalityChangesModalLabel">性格变化详情</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="personalityChangesList" class="list-group">
+                        <!-- 性格变化列表 -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        let currentUserId = '';  // 添加全局变量存储当前用户ID
+        let recommendations = [];  // 添加全局变量存储推荐内容
+
         $(document).ready(function() {
             $('#analyzeForm').on('submit', async function(e) {
                 e.preventDefault();
@@ -370,7 +392,6 @@
 
                 const loading = $('.loading');
                 const results = $('#results');
-                const recommendations = $('#recommendations');
 
                 loading.show();
                 results.hide();
@@ -416,17 +437,12 @@
             });
 
             function displayRecommendations(recommendations) {
-                const container = $('#recommendations');
-                container.empty();
-                
-                if (!recommendations || recommendations.length === 0) {
-                    container.html('<div class="alert alert-info">暂无推荐内容</div>');
-                    return;
-                }
+                const recommendationList = $('.recommendation-list');
+                recommendationList.empty();
                 
                 recommendations.forEach(item => {
                     const itemElement = $(`
-                        <div class="recommendation-item card mb-3" data-item-id="${item.id || ''}">
+                        <div class="recommendation-item card mb-3">
                             <div class="card-body">
                                 ${item.image_url ? `
                                     <img src="${item.image_url}" class="recommendation-image" alt="${item.name}">
@@ -435,7 +451,7 @@
                                 <p class="card-text">${item.description}</p>
                                 <p class="text-muted">推荐理由：${item.reason}</p>
                                 <p class="text-muted">推荐分数：${item.score}</p>
-                                <p class="text-muted">性格特征：${item.trait}</p>
+                                <p class="text-muted">性格特征：${item.significant_traits ? item.significant_traits[0] : 'None'}</p>
                                 
                                 ${item.type === 'product' ? `
                                     <div class="product-interactions">
@@ -462,7 +478,7 @@
                             </div>
                         </div>
                     `);
-                    container.append(itemElement);
+                    recommendationList.append(itemElement);
                 });
             }
         });
@@ -470,42 +486,36 @@
         function handleInteraction(itemId, interactionType, contentType) {
             const userId = $('#userId').val().trim();
             if (!userId) {
-                showToast('请先输入用户ID');
+                showToast('请先输入用户ID并进行分析');
                 return;
             }
-            
-            const data = {
-                user_id: userId,
-                item_id: itemId,
-                interaction_type: interactionType,
-                content_type: contentType
-            };
-            
-            console.log('Sending interaction:', data);
-            
+
+            // 从推荐列表中找到对应的项目
+            const itemElement = $(`.recommendation-item:has(button[onclick*="${itemId}"])`);
+            if (!itemElement.length) {
+                console.error('Item not found:', itemId);
+                return;
+            }
+
+            // 获取性格特征
+            const traitText = itemElement.find('.text-muted:contains("性格特征：")').text();
+            const trait = traitText.replace('性格特征：', '').trim();
+            const significant_traits = trait !== 'None' ? [trait] : [];
+
             fetch('/feedback', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                    user_id: userId,
+                    item_id: itemId,
+                    interaction_type: interactionType,
+                    content_type: contentType,
+                    significant_traits: significant_traits
+                })
             })
-            .then(async response => {
-                let responseData;
-                try {
-                    responseData = await response.json();
-                    console.log('Response status:', response.status, 'Response data:', responseData);
-                } catch (error) {
-                    console.error('Error parsing response:', error);
-                    throw new Error('无法解析服务器响应');
-                }
-                
-                if (!response.ok) {
-                    throw new Error(responseData.error || `请求失败: ${response.status}`);
-                }
-                return responseData;
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     showToast('操作成功！');
@@ -521,7 +531,7 @@
         }
 
         function updateInteractionUI(itemId, interactionType, contentType) {
-            const itemElement = $(`[data-item-id="${itemId}"]`);
+            const itemElement = $(`.recommendation-item:has(button[onclick*="${itemId}"])`);
             if (!itemElement.length) {
                 console.warn('Item element not found:', itemId);
                 return;
@@ -532,33 +542,26 @@
                 console.warn('Interaction button not found:', interactionType);
                 return;
             }
+
+            // 更新按钮状态
+            button.addClass('active').prop('disabled', true);
             
+            // 根据交互类型添加特定效果
             switch(interactionType) {
                 case 'like':
-                    button.toggleClass('active btn-primary').removeClass('btn-outline-primary');
-                    break;
-                case 'collect':
-                    button.toggleClass('active btn-info').removeClass('btn-outline-info');
+                    button.html('<i class="bi bi-heart-fill"></i> 已点赞');
                     break;
                 case 'comment':
-                    // 显示评论输入框
-                    if (!itemElement.find('.comment-form').length) {
-                        const commentForm = $(`
-                            <div class="comment-form mt-2">
-                                <textarea class="form-control mb-2" placeholder="请输入评论内容"></textarea>
-                                <button class="btn btn-primary btn-sm">提交评论</button>
-                            </div>
-                        `);
-                        itemElement.find('.content-interactions').after(commentForm);
-                    }
+                    button.html('<i class="bi bi-chat-fill"></i> 已评论');
+                    break;
+                case 'collect':
+                    button.html('<i class="bi bi-star-fill"></i> 已收藏');
                     break;
                 case 'add_to_cart':
-                    showToast('已加入购物车');
-                    button.prop('disabled', true).text('已加入购物车');
+                    button.html('<i class="bi bi-cart-check-fill"></i> 已加入购物车');
                     break;
                 case 'purchase':
-                    showToast('购买成功！');
-                    button.prop('disabled', true).text('已购买');
+                    button.html('<i class="bi bi-bag-check-fill"></i> 已购买');
                     break;
             }
         }
@@ -566,93 +569,82 @@
         function showToast(message) {
             const toast = $(`
                 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-body">
-                        ${message}
+                    <div class="toast-header">
+                        <strong class="me-auto">提示</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
+                    <div class="toast-body">${message}</div>
                 </div>
             `);
             
-            $('body').append(toast);
+            $('.toast-container').append(toast);
             const bsToast = new bootstrap.Toast(toast);
             bsToast.show();
             
-            setTimeout(() => {
+            toast.on('hidden.bs.toast', function() {
                 toast.remove();
-            }, 3000);
-        }
-
-        function showPersonalityChanges(changes) {
-            const changesContainer = document.querySelector('.personality-changes');
-            const changesList = document.querySelector('.changes-list');
-            
-            // 清空现有内容
-            changesList.innerHTML = '';
-            
-            // 添加变化项
-            for (const [trait, change] of Object.entries(changes)) {
-                const changeItem = document.createElement('div');
-                changeItem.className = 'change-item';
-                
-                const traitSpan = document.createElement('span');
-                traitSpan.className = 'change-trait';
-                traitSpan.textContent = trait;
-                
-                const valueSpan = document.createElement('span');
-                valueSpan.className = `change-value ${change < 0 ? 'negative' : ''}`;
-                valueSpan.textContent = `${change > 0 ? '+' : ''}${change}`;
-                
-                changeItem.appendChild(traitSpan);
-                changeItem.appendChild(valueSpan);
-                changesList.appendChild(changeItem);
-            }
-            
-            // 显示变化容器
-            changesContainer.style.display = 'block';
-        }
-
-        function updateUserData() {
-            const loading = $('.loading');
-            const userChanges = $('#userChanges');
-            
-            loading.show();
-            userChanges.empty();
-            
-            fetch('/update_user_data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({})
-            })
-            .then(async response => {
-                const data = await response.json();
-                console.log('Response status:', response.status, 'Response data:', data);
-                
-                if (!response.ok) {
-                    throw new Error(data.error || `HTTP error! status: ${response.status}`);
-                }
-                return data;
-            })
-            .then(data => {
-                if (data.success) {
-                    if (data.changes) {
-                        showPersonalityChanges(data.changes);
-                    }
-                    showToast('数据更新成功！');
-                    setTimeout(() => {
-                        location.reload();
-                    }, 2000);
-                } else {
-                    showToast('更新失败：' + (data.error || '未知错误'));
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showToast('更新失败：' + error.message);
-            })
-            .finally(() => {
-                loading.hide();
             });
+        }
+
+        function showPersonalityChanges(userId, changes) {
+            const changesList = $('#personalityChangesList');
+            changesList.empty();
+
+            // 显示用户ID
+            const userIdItem = $(`<li class="list-group-item"><strong>用户ID:</strong> ${userId}</li>`);
+            changesList.append(userIdItem);
+
+            // 显示性格变化
+            for (const [trait, change] of Object.entries(changes)) {
+                const { original, updated } = change;
+                if (original !== updated) {  // 只显示有变化的性格
+                    const listItem = $(`<li class="list-group-item">
+                        <strong>${trait}</strong>: 原始分数 ${original}, 更新后分数 ${updated}
+                    </li>`);
+                    changesList.append(listItem);
+                }
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById('personalityChangesModal'));
+            modal.show();
+
+            // 在模态框关闭后重置页面
+            $('#personalityChangesModal').on('hidden.bs.modal', function () {
+                $('#results').hide();
+                $('#userId').val('');
+                $('.recommendation-list').empty();  // 清空推荐内容
+                $('.main-content').show();
+            });
+        }
+
+        async function updateUserData() {
+            const loading = $('.loading');
+            loading.show();
+
+            try {
+                const response = await fetch('/update_user_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+                console.log('Update response:', data);
+
+                if (data.success) {
+                    currentUserId = $('#userId').val().trim();  // 确保currentUserId被正确设置
+                    console.log('Received changes:', data.changes);
+                    showPersonalityChanges(currentUserId, data.changes);
+                } else {
+                    showToast(data.error || '更新失败');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('请求失败，请重试');
+            } finally {
+                loading.hide();
+            }
         }
     </script>
 </body>

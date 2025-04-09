@@ -20,11 +20,10 @@ class UserFeedback:
         }
         self.db_path = "user.db"
 
-    def record_interaction(self, user_id, content_id, interaction_type, content_type):
+    def record_interaction(self, user_id, content_id, interaction_type, content_type, significant_traits=None):
         """记录用户交互行为"""
         try:
-            logger.debug(f"Recording interaction - User: {user_id}, Content: {content_id}, "
-                        f"Type: {interaction_type}, Content Type: {content_type}")
+            logger.debug(f"Recording interaction: user_id={user_id}, content_id={content_id}, interaction_type={interaction_type}, content_type={content_type}, significant_traits={significant_traits}")
             
             if not all([user_id, content_id, interaction_type, content_type]):
                 missing_fields = [field for field, value in {
@@ -47,10 +46,12 @@ class UserFeedback:
                 'content_id': content_id,
                 'interaction_type': interaction_type,
                 'content_type': content_type,
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().isoformat(),
+                'significant_traits': significant_traits or []  # 添加性格特征信息
             }
             self.behavior_data.append(interaction)
             logger.info(f"Successfully recorded interaction: {interaction}")
+            logger.debug(f"Behavior data before score changes: {self.behavior_data}")
             return True
             
         except Exception as e:
@@ -76,30 +77,46 @@ class UserFeedback:
                 # 获取用户的所有交互
                 user_interactions = [i for i in self.behavior_data if i['user_id'] == user_id]
                 
+                # 记录已处理的性格特征
+                processed_traits = set()
+                
+                # 获取推荐内容关联的性格特征
+                recommended_traits = set()
+                for interaction in user_interactions:
+                    if 'significant_traits' in interaction:
+                        recommended_traits.update(interaction['significant_traits'])
+                
                 # 计算新的分数
                 new_scores = current_scores.copy()
-                for trait in new_scores:
-                    # 获取该特征相关的交互
-                    trait_interactions = [i for i in user_interactions 
-                                        if self._is_trait_related(i['content_type'], trait)]
-                    
-                    if trait_interactions:
-                        # 计算交互得分
-                        interaction_score = sum(self.score_changes[i['interaction_type']] 
-                                             for i in trait_interactions)
-                        new_scores[trait] = min(100, max(0, current_scores[trait] + interaction_score))
-                    else:
-                        # 没有交互，扣分
-                        new_scores[trait] = max(0, current_scores[trait] + self.score_changes['no_interaction'])
+                
+                # 处理有交互的内容
+                for interaction in user_interactions:
+                    if 'significant_traits' in interaction:
+                        for trait in interaction['significant_traits']:
+                            if trait not in processed_traits and trait in current_scores:
+                                # 获取交互得分
+                                interaction_score = self.score_changes.get(interaction['interaction_type'], 0)
+                                current_score = current_scores[trait] or 0
+                                new_scores[trait] = min(100, max(0, current_score + interaction_score))
+                                processed_traits.add(trait)
+                                logger.debug(f"User {user_id} - Trait {trait} updated due to {interaction['interaction_type']}: {current_score} -> {new_scores[trait]}")
+                
+                # 处理推荐但没有交互的性格特征
+                for trait in recommended_traits:
+                    if trait not in processed_traits and trait in current_scores:
+                        current_score = current_scores[trait] or 0
+                        new_scores[trait] = max(0, current_score + self.score_changes['no_interaction'])
+                        processed_traits.add(trait)
+                        logger.debug(f"User {user_id} - Trait {trait} decreased due to no interaction: {current_score} -> {new_scores[trait]}")
                 
                 # 更新数据库
                 update_query = f"UPDATE personality SET {', '.join(f'{col} = ?' for col in columns[1:])} WHERE id = ?"
                 cursor.execute(update_query, list(new_scores.values()) + [user_id])
                 
                 # 记录变化
-                changes = {trait: new_scores[trait] - current_scores[trait] 
-                         for trait in new_scores 
-                         if new_scores[trait] != current_scores[trait]}
+                changes = {trait: new_scores[trait] - (current_scores[trait] or 0) 
+                         for trait in processed_traits 
+                         if new_scores[trait] != (current_scores[trait] or 0)}
                 
                 if changes:
                     logger.info(f"Updated scores for user {user_id}: {changes}")
@@ -149,7 +166,7 @@ class UserFeedback:
             conn.close()
 
     def get_score_changes(self):
-        """获取所有用户的分数变化"""
+        """获取所有用户的分数变化，返回原始和更新后的分数"""
         try:
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
@@ -169,28 +186,36 @@ class UserFeedback:
                 # 获取所有性格特征
                 cursor.execute("SELECT * FROM personality WHERE id = ?", (user_id,))
                 columns = [description[0] for description in cursor.description]
-                traits = [col for col in columns if col != 'id']
+                current_scores = dict(zip(columns[1:], cursor.fetchone()[1:]))
                 
                 # 计算每个性格特征的变化
                 trait_changes = {}
-                for trait in traits:
+                for trait in current_scores.keys():
                     # 获取该特征相关的交互
                     trait_interactions = [i for i in user_interactions 
                                         if self._is_trait_related(i['content_type'], trait)]
                     
+                    original_score = current_scores[trait] or 0
                     if trait_interactions:
                         # 计算交互得分
                         interaction_score = sum(self.score_changes[i['interaction_type']] 
                                              for i in trait_interactions)
-                        trait_changes[trait] = interaction_score
+                        updated_score = min(100, max(0, original_score + interaction_score))
                     else:
                         # 没有交互，扣分
-                        trait_changes[trait] = self.score_changes['no_interaction']
+                        updated_score = max(0, original_score + self.score_changes['no_interaction'])
+                    
+                    if original_score != updated_score:
+                        trait_changes[trait] = {
+                            'original': original_score,
+                            'updated': updated_score
+                        }
                 
                 if trait_changes:
                     changes[user_id] = trait_changes
             
             conn.close()
+            logger.debug(f"Score changes calculated: {changes}")
             return changes
             
         except Exception as e:
