@@ -348,7 +348,8 @@ def handle_feedback():
             user_id=user_id,
             content_id=content_id,
             interaction_type=interaction_type,
-            content_type=content_type
+            content_type=content_type,
+            significant_traits=data.get('significant_traits', [])
         )
         
         if success:

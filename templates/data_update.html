@@ -70,6 +70,26 @@
             text-align: center;
             margin: 20px 0;
         }
+        .trait-change:last-child {
+            border-bottom: none !important;
+        }
+        .badge {
+            font-size: 0.9em;
+            padding: 0.4em 0.6em;
+        }
+        .trait-name {
+            font-size: 1.1em;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+        }
+        .card-header {
+            border-radius: 10px 10px 0 0 !important;
+        }
+        .shadow-sm {
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+        }
     </style>
 </head>
 <body>
@@ -81,6 +101,9 @@
             </button>
         </div>
     </nav>
+
+    <!-- 添加 Toast 容器 -->
+    <div class="toast-container position-fixed top-0 end-0 p-3"></div>
 
     <div class="container-fluid">
         <div class="row">
@@ -150,25 +173,29 @@
             
             loading.show();
             userChanges.empty();
-            
+
             fetch('/update_user_data', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 }
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Update response:', data);
                 if (data.success) {
-                    displayUserChanges(data.changes);
-                    showToast('数据更新成功！');
+                    showToast('数据更新成功');
+                    if (data.changes) {
+                        console.log('Received changes:', data.changes);
+                        displayUserChanges(data.changes);
+                    }
                 } else {
-                    showToast('更新失败：' + data.error);
+                    showToast('更新失败：' + (data.error || '未知错误'));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showToast('更新失败，请稍后重试');
+                showToast('更新失败：' + error.message);
             })
             .finally(() => {
                 loading.hide();
@@ -176,55 +203,96 @@
         }
 
         function displayUserChanges(changes) {
+            const userId = $('#userId').val().trim();
+            console.log('DisplayUserChanges received:', changes);
             const container = $('#userChanges');
             container.empty();
             
-            if (!changes || Object.keys(changes).length === 0) {
-                container.html('<div class="alert alert-info">没有发现用户数据变化</div>');
-                return;
-            }
-            
-            for (const [userId, userChanges] of Object.entries(changes)) {
-                const card = $(`
-                    <div class="card user-card">
-                        <div class="card-header">
-                            <h5 class="mb-0">用户 ${userId}</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="trait-changes">
-                                ${Object.entries(userChanges).map(([trait, change]) => `
-                                    <div class="trait-change">
-                                        <span class="trait-name">${trait}</span>
-                                        <span class="change-value ${change < 0 ? 'negative' : ''}">
-                                            ${change > 0 ? '+' : ''}${change}
-                                        </span>
-                                    </div>
-                                `).join('')}
+            try {
+                if (!changes || Object.keys(changes).length === 0) {
+                    container.html('<div class="alert alert-info">没有发现用户数据变化</div>');
+                    return;
+                }
+
+                // 只显示当前用户ID的变化
+                const userChanges = changes[userId];
+                if (!userChanges) {
+                    container.html('<div class="alert alert-info">没有发现当前用户的数据变化</div>');
+                    return;
+                }
+
+                Object.entries(userChanges).forEach(([trait, change]) => {
+                    const cardHtml = `
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                用户ID: ${userId}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">性格特征: ${trait}</h5>
+                                <p class="card-text">原始分数: ${change.original}</p>
+                                <p class="card-text">更新后分数: ${change.updated}</p>
                             </div>
                         </div>
-                    </div>
-                `);
-                container.append(card);
+                    `;
+                    container.append(cardHtml);
+                });
+            } catch (error) {
+                console.error('Error displaying user changes:', error);
+                container.html('<div class="alert alert-danger">显示数据变化时出错</div>');
             }
         }
 
         function showToast(message) {
+            const toastContainer = $('.toast-container');
             const toast = $(`
                 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">提示</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
                     <div class="toast-body">
                         ${message}
                     </div>
                 </div>
             `);
             
-            $('body').append(toast);
-            const bsToast = new bootstrap.Toast(toast);
+            toastContainer.append(toast);
+            const bsToast = new bootstrap.Toast(toast, {
+                autohide: true,
+                delay: 3000
+            });
             bsToast.show();
             
-            setTimeout(() => {
+            toast.on('hidden.bs.toast', function() {
                 toast.remove();
-            }, 3000);
+            });
         }
+
+        // 添加一些基础样式
+        const style = document.createElement('style');
+        style.textContent = `
+            .trait-change:last-child {
+                border-bottom: none !important;
+            }
+            .badge {
+                font-size: 0.9em;
+                padding: 0.4em 0.6em;
+            }
+            .trait-name {
+                font-size: 1.1em;
+            }
+            .card {
+                border: none;
+                border-radius: 10px;
+            }
+            .card-header {
+                border-radius: 10px 10px 0 0 !important;
+            }
+            .shadow-sm {
+                box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html> 
