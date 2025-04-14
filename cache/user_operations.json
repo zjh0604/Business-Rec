@@ -1,0 +1,2943 @@
+{
+  "operations": [
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:07:11",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:16:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:04",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:04",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:04",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:04",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:04",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:05",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:05",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:05",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:05",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:05",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:06",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:06",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:06",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:06",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:06",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:07",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:07",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:07",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:07",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:10",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:10",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:10",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:11",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:11",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:11",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:11",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:11",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:12",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:12",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:12",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:12",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:13",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:13",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:13",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:13",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:13",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:14",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:14",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:14",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:14",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:15",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:15",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:15",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:15",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:15",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:16",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:16",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:17",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:17",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:17",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:17",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:17",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:18",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:18",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:18",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:18",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:18",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:19",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:19",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:19",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:19",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:20",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:20",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:20",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:20",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:21",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:21",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:21",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:21",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:21",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:22",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:22",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:22",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:22",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:23",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:44",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:45",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:45",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:45",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:45",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:45",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:46",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:46",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:46",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:46",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:46",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:47",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:47",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:47",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:47",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:47",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:48",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:48",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:48",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:49",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:49",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:49",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:49",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:49",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:50",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:51",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:53",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:00",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 81,
+        "title": "16",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 48,
+        "title": "10",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 47,
+        "title": "9",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 45,
+        "title": "7",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:04",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {}
+      }
+    }
+  ],
+  "last_update": "2025-04-14T14:51:48.890747"
+}

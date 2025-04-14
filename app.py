@@ -196,23 +196,30 @@ def get_user_operations(user_id):
         with open('user_operations.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        # 过滤出指定用户的操作
-        user_operations = [
-            op for op in data['operations']
-            if op['user_id'] == str(user_id)
-        ]
+        # 过滤出指定用户的操作，并只保留重要字段
+        user_operations = []
+        for op in data['operations']:
+            if op['user_id'] == str(user_id):
+                # 只保留最关键的字段，并简化格式
+                simplified_op = {
+                    'a': op['action'],  # 使用简短的键名
+                    't': op['time'],    # 使用简短的键名
+                    'b': op['detail']['business_type'],  # 使用简短的键名
+                    'c': op['detail'].get('category', '')  # 使用简短的键名
+                }
+                user_operations.append(simplified_op)
 
         # 如果没有找到用户操作，返回空列表
         if not user_operations:
-            return {"operations": []}
+            return {"ops": []}  # 使用更短的键名
 
         # 返回用户操作日志
-        return {"operations": user_operations}
+        return {"ops": user_operations}  # 使用更短的键名
 
     except Exception as e:
         print(f"Error reading user operations: {str(e)}")
         # 如果出错，返回空操作日志
-        return {"operations": []}
+        return {"ops": []}  # 使用更短的键名
 
 def process_user_analysis(user_id):
     """Process user analysis and return results"""
@@ -236,7 +243,16 @@ def process_user_analysis(user_id):
                 initial_scores[col] = val
 
         # 获取用户特定的操作日志
-        user_operation_diary = json.dumps(get_user_operations(user_id), ensure_ascii=False)
+        user_operations = get_user_operations(user_id)
+        
+        # 限制操作日志的长度
+        max_operations = 50  # 减少处理的操作记录数量
+        if len(user_operations['ops']) > max_operations:
+            user_operations['ops'] = user_operations['ops'][:max_operations]
+            logger.warning(f"操作日志超过{max_operations}条，只处理前{max_operations}条")
+        
+        # 使用更紧凑的JSON格式
+        user_operation_diary = json.dumps(user_operations, ensure_ascii=False, separators=(',', ':'))
 
         # 构建用户画像字符串
         user_profile = f"用户的三魂六魄画像：id = {user_id}"
@@ -245,23 +261,113 @@ def process_user_analysis(user_id):
         user_profile += "."
 
         # 生成操作总结
-        prompt_diary = "以上是该用户的操作日志，请按以下格式进行总结：'用户xx天内操作了xx次xx'...注意不要生成其他的信息，不需要解释你的回答。"
+        prompt_diary = """
+        请根据用户的操作日志进行客观的统计分析，重点关注以下几个方面：
+
+        1. 时间维度：
+        - 统计30天内各类操作的频率
+        - 计算用户在不同类型内容上的时长
+
+        2. 内容偏好：
+        - 统计用户观看/阅读的内容类型（如爱情、古装、旅游等）及其具体次数
+        - 分析用户对不同类型内容的互动方式（浏览、点赞、评论、收藏等）的具体次数
+
+        请按以下格式输出分析结果：
+        1. 时间统计：
+        - 用户在[具体日期]进行了[具体操作]，共计[次数]次
+        - 用户在[时间段]内观看[具体类型]内容[次数]次
+        
+        2. 内容偏好：
+        - 观看类型：[类型1]内容[次数]次，[类型2]内容[次数]次...
+        - 互动方式：[方式1][次数]次，[方式2][次数]次...
+        
+        3. 行为总结：
+        用户在过去30天内共进行了[总次数]次操作，其中：
+        - 观看行为：[具体统计，如'爱情类13次，古装剧8次...']
+        - 互动行为：[具体统计，如'点赞21次，评论15次...']
+        - 时间分布：[具体统计，如'工作日占60%，周末占40%...']
+
+        注意：
+        1. 请尽可能详细地列出具体的数字统计
+        2. 对于每种类型的内容和互动方式，都需要给出准确的次数
+        3. 所有统计都要基于30天为周期
+        """
+        
+        # 检查总长度是否超过限制
+        total_length = len(user_operation_diary) + len(prompt_diary)
+        if total_length > 20000:  # 留出一些余量
+            # 如果超过限制，截取部分操作日志
+            max_diary_length = 20000 - len(prompt_diary)
+            user_operation_diary = user_operation_diary[:max_diary_length]
+            logger.warning(f"操作日志超过长度限制，已截取前{max_diary_length}个字符")
+        
         result_summary = ''.join(answer_without_chroma_db(user_operation_diary + prompt_diary))
 
         # 生成新的画像
         prompt_profile = """
-        请根据用户的操作日志，和旧的用户画像，覆盖用户画像分数。你必须严格按照参考内容的打分标准进行打分。
-        输出格式为：用户的三魂七魄画像：\n
-        id = xxx\n
-        旧的xxx = xxx, 旧的xxx = xxx,
-        新的xxx = xxx, 新的xxx = xxx,
-        xxx变化了xxx分, xxx变化了xxx分.
+        请分析以下用户信息并生成更新后的用户画像：
+
+        [用户基本信息]
+        {user_profile}
+
+        [用户行为统计]
+        {result_summary}
+
+        请按以下步骤分析：
+
+        1. 识别关键行为数据：
+        - 从行为统计中提取具体的行为数据（如观看次数、互动频率等）
+        - 重点关注与性格特征相关的行为模式
+
+        2. 知识库匹配分析：
+        - 将每个关键行为与知识库中的评分标准进行匹配
+        - 明确指出行为数据是如何对应到评分标准的
+        - 对每个匹配项给出具体的评分依据
+
+        3. 分数更新说明：
+        - 解释每个性格特征的分数变化原因
+        - 引用具体的知识库标准作为依据
+        - 说明分数计算的具体过程
+
+        请按以下格式输出分析结果：
+
+        === 用户画像分析 ===
+        用户ID：{user_id}
+
+        [行为-知识库匹配分析]
+        1. 行为：[具体行为数据]
+           知识库匹配：[对应的评分标准]
+        
+
+        2. 行为：[具体行为数据]
+           知识库匹配：[对应的评分标准]
+        
+        ...（列出有知识库匹配的行为，没有关联的行为不要列出）
+     
+
+        [性格特征更新]
+        - 特征1：旧分数 -> 新分数
+          变化原因：[基于上述哪些行为匹配，引用具体的知识库标准]
+          
+        - 特征2：旧分数 -> 新分数
+          变化原因：[基于上述哪些行为匹配，引用具体的知识库标准]
+
+        注意：
+        1. 必须明确展示行为数据与知识库标准的对应关系
+        2. 每个分数变化都必须有具体的知识库标准支持
+        3. 分数计算过程要清晰可追踪
         """
 
+        # 格式化prompt
+        formatted_prompt = prompt_profile.format(
+            user_id=user_id,
+            user_profile=user_profile,
+            result_summary=result_summary
+        )
+
+        # 使用RAG进行分析
         result_profile = ''.join(
-            answer_user_query("rag_shqp",
-                            "用户id：" + user_id + "\n用户画像：" +
-                            user_profile + result_summary + prompt_profile))
+            answer_user_query("rag_shqp", formatted_prompt))
 
         # 提取新分数
         new_scores = extract_scores_from_text(result_profile)

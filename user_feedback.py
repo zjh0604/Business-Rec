@@ -1,7 +1,7 @@
 import json
 import sqlite3
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
@@ -111,7 +111,6 @@ class UserFeedback:
         conn = None
         try:
             logger.debug("Starting personality score update...")
-            # 获取所有用户
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
             cursor.execute("SELECT id FROM personality")
@@ -132,69 +131,66 @@ class UserFeedback:
                 current_scores = dict(zip(columns[1:], row[1:]))
                 logger.debug(f"Current scores for user {user_id}: {current_scores}")
                 
-                # 从数据库获取用户的所有交互
+                # 从数据库获取用户最近30天的交互
                 cursor.execute("""
                     SELECT user_id, content_id, interaction_type, content_type, significant_traits, timestamp
                     FROM user_behavior
-                    WHERE user_id = ?
+                    WHERE user_id = ? AND datetime(timestamp) >= datetime('now', '-30 days')
                 """, (user_id,))
                 
                 rows = cursor.fetchall()
-                logger.debug(f"Found {len(rows)} interactions for user {user_id} in database")
+                logger.debug(f"Found {len(rows)} recent interactions for user {user_id}")
                 
-                user_interactions = []
-                for row in rows:
-                    # 处理性格特征名称，移除"旧的"前缀
-                    traits = json.loads(row[4]) if row[4] else []
-                    processed_traits = [trait.replace('旧的', '') for trait in traits]
-                    
-                    interaction = {
-                        'user_id': row[0],
-                        'content_id': row[1],
-                        'interaction_type': row[2],
-                        'content_type': row[3],
-                        'significant_traits': processed_traits,
-                        'timestamp': row[5]
-                    }
-                    user_interactions.append(interaction)
-                    logger.debug(f"Loaded interaction for user {user_id}: {interaction}")
-                
-                if not user_interactions:
-                    logger.debug(f"No interactions found for user {user_id}")
-                    continue
-                
-                # 记录已处理的性格特征
-                processed_traits = set()
-                
-                # 获取推荐内容关联的性格特征
+                # 记录每个特征的交互情况
+                trait_interactions = {}
                 recommended_traits = set()
-                for interaction in user_interactions:
-                    if 'significant_traits' in interaction:
-                        recommended_traits.update(interaction['significant_traits'])
-                logger.debug(f"Recommended traits for user {user_id}: {recommended_traits}")
+                
+                # 处理所有交互
+                for row in rows:
+                    traits = json.loads(row[4]) if row[4] else []
+                    interaction_type = row[2]
+                    
+                    for trait in traits:
+                        recommended_traits.add(trait)
+                        if trait not in trait_interactions:
+                            trait_interactions[trait] = {'interactions': [], 'last_interaction': None}
+                        
+                        trait_interactions[trait]['interactions'].append({
+                            'type': interaction_type,
+                            'timestamp': row[5]
+                        })
+                        trait_interactions[trait]['last_interaction'] = row[5]
                 
                 # 计算新的分数
                 new_scores = current_scores.copy()
                 
-                # 处理有交互的内容
-                for interaction in user_interactions:
-                    if 'significant_traits' in interaction:
-                        for trait in interaction['significant_traits']:
-                            if trait not in processed_traits and trait in current_scores:
-                                # 获取交互得分
-                                interaction_score = self.score_changes.get(interaction['interaction_type'], 0)
-                                current_score = current_scores[trait] or 0
-                                new_scores[trait] = min(100, max(0, current_score + interaction_score))
-                                processed_traits.add(trait)
-                                logger.debug(f"User {user_id} - Trait {trait} updated due to {interaction['interaction_type']}: {current_score} -> {new_scores[trait]}")
-                
-                # 处理推荐但没有交互的性格特征
+                # 处理每个特征
                 for trait in recommended_traits:
-                    if trait not in processed_traits and trait in current_scores:
-                        current_score = current_scores[trait] or 0
-                        new_scores[trait] = max(0, current_score + self.score_changes['no_interaction'])
-                        processed_traits.add(trait)
-                        logger.debug(f"User {user_id} - Trait {trait} decreased due to no interaction: {current_score} -> {new_scores[trait]}")
+                    if trait not in current_scores:
+                        continue
+                        
+                    interactions = trait_interactions.get(trait, {}).get('interactions', [])
+                    last_interaction = trait_interactions.get(trait, {}).get('last_interaction')
+                    
+                    # 计算基础分数变化
+                    score_change = 0
+                    for interaction in interactions:
+                        score_change += self.score_changes.get(interaction['type'], 0)
+                    
+                    # 如果最近7天没有交互，应用惩罚
+                    if not last_interaction or (
+                        datetime.fromisoformat(last_interaction) < 
+                        datetime.now().replace(microsecond=0) - timedelta(days=7)
+                    ):
+                        score_change += self.score_changes['no_interaction']
+                        logger.debug(f"Applying no_interaction penalty to {trait} for user {user_id}")
+                    
+                    # 应用分数变化
+                    current_score = current_scores[trait] or 0
+                    new_scores[trait] = min(100, max(0, current_score + score_change))
+                    
+                    if new_scores[trait] != current_score:
+                        logger.debug(f"User {user_id} - Trait {trait} updated: {current_score} -> {new_scores[trait]} (change: {score_change})")
                 
                 # 更新数据库
                 try:
@@ -208,41 +204,41 @@ class UserFeedback:
                     if update_cols:
                         update_query = f"UPDATE personality SET {', '.join(update_cols)} WHERE id = ?"
                         update_vals.append(user_id)
-                        logger.debug(f"Executing update query: {update_query}")
-                        logger.debug(f"Update values: {update_vals}")
                         cursor.execute(update_query, update_vals)
-                        
-                        # 验证更新
-                        cursor.execute("SELECT * FROM personality WHERE id = ?", (user_id,))
-                        updated_row = cursor.fetchone()
-                        updated_scores = dict(zip(columns[1:], updated_row[1:]))
-                        logger.debug(f"Updated scores in database for user {user_id}: {updated_scores}")
                         
                         # 记录变化
                         changes = {trait: {'original': current_scores.get(trait, 0), 'updated': new_scores[trait]} 
-                                for trait in processed_traits 
+                                for trait in recommended_traits 
                                 if new_scores[trait] != current_scores.get(trait, 0)}
                         
                         if changes:
                             logger.info(f"Updated scores for user {user_id}: {changes}")
                 except Exception as e:
-                    logger.error(f"Error updating database for user {user_id}: {str(e)}", exc_info=True)
+                    logger.error(f"Error updating database for user {user_id}: {str(e)}")
                     raise
             
             conn.commit()
-            logger.debug("Database changes committed")
+            
+            # 清除已处理的反馈记录
+            try:
+                logger.debug("Clearing processed behavior records...")
+                cursor.execute("DELETE FROM user_behavior WHERE datetime(timestamp) < datetime('now', '-30 days')")
+                conn.commit()
+                logger.info("Successfully cleared old behavior records")
+            except Exception as e:
+                logger.error(f"Error clearing old behavior records: {str(e)}")
+                raise
+                
             return True
             
         except Exception as e:
-            logger.error(f"Error updating personality scores: {str(e)}", exc_info=True)
+            logger.error(f"Error updating personality scores: {str(e)}")
             if conn:
                 conn.rollback()
-                logger.debug("Database changes rolled back")
             return False
         finally:
             if conn:
                 conn.close()
-                logger.debug("Database connection closed")
 
     def _is_trait_related(self, content_type, trait):
         """判断内容类型是否与性格特征相关"""

@@ -68,7 +68,7 @@ multidict==6.0.5
 multiprocess==0.70.16
 mypy-extensions==1.0.0
 networkx==3.3
-numpy>=1.24.0
+numpy>=1.21.0
 oauthlib==3.2.2
 onnxruntime==1.19.2
 openai==1.44.0
