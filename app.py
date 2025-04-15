@@ -11,6 +11,9 @@ from flask import Blueprint, request, jsonify, render_template, current_app
 import logging
 from content_manager import content_manager
 from user_feedback import user_feedback
+from personality_score import PersonalityScoreCalculator
+from typing import List, Dict
+
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -564,3 +567,86 @@ def get_user_behavior(user_id):
             'success': False,
             'error': str(e)
         })
+
+@api.post("/update_profile")
+async def update_profile(user_id: int):
+    try:
+        # 获取用户操作数据
+        operations = await get_user_operations(user_id)
+        if not operations:
+            return {"error": "未找到用户操作数据"}
+        
+        # 获取当前性格特征分数
+        current_scores = await get_current_personality_scores(user_id)
+        
+        # 创建性格分数计算器
+        calculator = PersonalityScoreCalculator()
+        
+        # 计算新的性格特征分数
+        updated_scores = calculator.update_personality_scores(operations, current_scores)
+        
+        # 生成更新原因
+        update_reasons = {}
+        for trait in updated_scores:
+            reasons = calculator.get_score_change_reasons(operations, trait)
+            if reasons:
+                update_reasons[trait] = reasons
+        
+        # 更新数据库
+        await update_personality_scores_in_db(user_id, updated_scores)
+        
+        # 构建提示词
+        prompt = build_profile_update_prompt(operations, current_scores, updated_scores, update_reasons)
+        
+        # 调用模型生成新的画像
+        new_profile = await generate_new_profile(prompt)
+        
+        return {
+            "success": True,
+            "new_profile": new_profile,
+            "score_changes": {
+                trait: {
+                    "old_score": current_scores[trait],
+                    "new_score": updated_scores[trait],
+                    "reasons": update_reasons.get(trait, [])
+                } for trait in updated_scores
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"更新用户画像时出错: {str(e)}")
+        return {"error": str(e)}
+
+def build_profile_update_prompt(operations: List[Dict], 
+                              current_scores: Dict[str, float],
+                              updated_scores: Dict[str, float],
+                              update_reasons: Dict[str, List[str]]) -> str:
+    """构建更新画像的提示词"""
+    prompt = f"""基于用户最近的行为数据，更新用户画像。以下是详细分析：
+
+[用户行为分析]
+{format_operations(operations)}
+
+[性格特征更新]
+"""
+    
+    for trait, new_score in updated_scores.items():
+        old_score = current_scores[trait]
+        reasons = update_reasons.get(trait, [])
+        
+        prompt += f"""
+- {trait}：
+  旧分数：{old_score:.1f} -> 新分数：{new_score:.1f}
+  变化原因：
+"""
+        for reason in reasons:
+            prompt += f"  - {reason}\n"
+    
+    prompt += """
+请根据以上分析，生成更新后的用户画像，重点关注：
+1. 性格特征的变化及其原因
+2. 用户行为模式的新发现
+3. 对用户未来行为的预测
+"""
+    
+    return prompt

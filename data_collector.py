@@ -6,6 +6,11 @@ import logging
 import time
 from typing import Dict, List, Any
 import os
+import sqlite3
+from contextlib import asynccontextmanager
+import pandas as pd
+from sqlalchemy import create_engine, text
+import numpy as np
 
 # 配置日志
 logging.basicConfig(
@@ -58,21 +63,66 @@ class APITokenManager:
                 return data["data"]["accessToken"]
 
 class DataCollector:
-    def __init__(self):
+    def __init__(self, batch_size=1000, db_path="user.db"):
         self.base_url = "https://api.sohuglobal.com"
-        self.user_operations = {
-            "operations": [],
-            "last_update": None
-        }
+        self.batch_size = batch_size
+        self.db_path = db_path
         self.cache_dir = "cache"
         os.makedirs(self.cache_dir, exist_ok=True)
         
+        # 初始化数据库连接
+        self.engine = create_engine(f"sqlite:///{db_path}")
+        self._init_database()
+        
         # 清空缓存文件
+        self._clear_cache()
+
+    def _init_database(self):
+        """初始化数据库表结构"""
+        with self.engine.connect() as conn:
+            # 创建用户行为表
+            conn.execute(text("""
+                CREATE TABLE IF NOT EXISTS user_operations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id TEXT NOT NULL,
+                    action TEXT NOT NULL,
+                    time TIMESTAMP NOT NULL,
+                    business_type TEXT,
+                    business_id INTEGER,
+                    title TEXT,
+                    category TEXT,
+                    comments_count INTEGER,
+                    view_count INTEGER,
+                    praise_count INTEGER,
+                    collect_count INTEGER,
+                    forward_count INTEGER,
+                    description TEXT,
+                    duration INTEGER,
+                    cover_url TEXT,
+                    video_url TEXT,
+                    author TEXT,
+                    publish_time TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """))
+            conn.commit()
+
+    def _clear_cache(self):
+        """清空缓存文件"""
         cache_file = os.path.join(self.cache_dir, "user_operations.json")
         if os.path.exists(cache_file):
             os.remove(cache_file)
         if os.path.exists("user_operations.json"):
             os.remove("user_operations.json")
+
+    @asynccontextmanager
+    async def _get_session(self):
+        """创建和管理aiohttp会话"""
+        session = aiohttp.ClientSession()
+        try:
+            yield session
+        finally:
+            await session.close()
 
     async def _make_request(self, endpoint: str, method: str = "GET", params: Dict = None) -> Dict:
         """发送API请求并处理响应"""
@@ -88,7 +138,7 @@ class DataCollector:
                     "Content-Type": "application/json"
                 }
 
-                async with aiohttp.ClientSession() as session:
+                async with self._get_session() as session:
                     async with session.request(method, url, headers=headers, params=params) as response:
                         if response.status == 401:  # Token 失效
                             APITokenManager._token = None
@@ -132,17 +182,11 @@ class DataCollector:
             logger.error(f"获取行为记录 {record_id} 详情时返回无效响应")
             return {}
         
-        # 检查响应中是否包含 data 字段
         if "data" not in response:
             logger.error(f"行为记录 {record_id} 的响应中没有 data 字段")
             return {}
         
-        # 记录 data 字段的类型和内容
         data = response["data"]
-        logger.debug(f"行为记录 {record_id} 的 data 字段类型: {type(data)}")
-        logger.debug(f"行为记录 {record_id} 的 data 字段内容: {data}")
-        
-        # 如果 data 不是字典类型，尝试将其转换为字典
         if not isinstance(data, dict):
             try:
                 if isinstance(data, str):
@@ -171,15 +215,20 @@ class DataCollector:
         if not response or not isinstance(response, dict):
             logger.error(f"获取评论列表时返回无效响应")
             return []
+        
         data = response.get("data", {})
-        if not isinstance(data, dict):
-            logger.error(f"评论列表数据不是字典类型: {type(data)}")
+        if isinstance(data, list):
+            return data
+        elif isinstance(data, dict):
+            comments = data.get("list", [])
+            if isinstance(comments, list):
+                return comments
+            else:
+                logger.error(f"评论数据不是列表类型: {type(comments)}")
+                return []
+        else:
+            logger.error(f"评论列表数据不是预期的类型: {type(data)}")
             return []
-        comments = data.get("list", [])
-        if not isinstance(comments, list):
-            logger.error(f"评论数据不是列表类型: {type(comments)}")
-            return []
-        return comments
 
     async def get_intro_detail(self, busy_code: int, busy_type: str) -> Dict:
         """获取简介详情"""
@@ -188,10 +237,72 @@ class DataCollector:
         if not response or not isinstance(response, dict):
             logger.error(f"获取简介详情时返回无效响应")
             return {}
-        return response
+        
+        data = response.get("data", {})
+        if not isinstance(data, dict):
+            logger.error(f"简介详情数据不是字典类型: {type(data)}")
+            return {}
+            
+        intro_info = {
+            "view_count": data.get("viewCount", 0),
+            "comment_count": data.get("commentCount", 0),
+            "praise_count": data.get("praiseCount", 0),
+            "collect_count": data.get("collectCount", 0),
+            "forward_count": data.get("forwardCount", 0)
+        }
+        
+        if busy_type == "Video":
+            intro_info.update({
+                "description": data.get("description", ""),
+                "duration": data.get("duration", 0),
+                "cover_url": data.get("coverUrl", ""),
+                "video_url": data.get("videoUrl", "")
+            })
+        elif busy_type == "Article":
+            intro_info.update({
+                "content": data.get("content", ""),
+                "cover_url": data.get("coverUrl", ""),
+                "author": data.get("author", ""),
+                "publish_time": data.get("publishTime", "")
+            })
+            
+        return intro_info
+
+    async def _process_batch(self, batch: List[Dict]):
+        """处理一批数据并保存到数据库"""
+        if not batch:
+            return
+
+        # 准备批量插入的数据
+        records = []
+        for record in batch:
+            records.append({
+                'user_id': record['user_id'],
+                'action': record['action'],
+                'time': record['time'],
+                'business_type': record['detail']['business_type'],
+                'business_id': record['detail']['business_id'],
+                'title': record['detail']['title'],
+                'category': record['detail']['category'],
+                'comments_count': record['detail']['comments_count'],
+                'view_count': record['detail']['intro_stats'].get('view_count', 0),
+                'praise_count': record['detail']['intro_stats'].get('praise_count', 0),
+                'collect_count': record['detail']['intro_stats'].get('collect_count', 0),
+                'forward_count': record['detail']['intro_stats'].get('forward_count', 0),
+                'description': record['detail'].get('description', ''),
+                'duration': record['detail'].get('duration', 0),
+                'cover_url': record['detail'].get('cover_url', ''),
+                'video_url': record['detail'].get('video_url', ''),
+                'author': record['detail'].get('author', ''),
+                'publish_time': record['detail'].get('publish_time', '')
+            })
+
+        # 使用pandas进行批量插入
+        df = pd.DataFrame(records)
+        df.to_sql('user_operations', self.engine, if_exists='append', index=False)
 
     async def process_user_behavior(self, user_id: int) -> None:
-        """处理用户行为数据并保存到user_operations"""
+        """处理用户行为数据并保存到数据库"""
         logger.info(f"开始处理用户 {user_id} 的行为数据")
         
         try:
@@ -206,6 +317,7 @@ class DataCollector:
             # 使用信号量限制并发请求数
             semaphore = asyncio.Semaphore(5)
             tasks = []
+            current_batch = []
 
             async def process_behavior(behavior):
                 async with semaphore:
@@ -216,7 +328,6 @@ class DataCollector:
                             logger.debug(f"行为记录 {behavior['id']} 没有详情数据，跳过")
                             return None
 
-                        # 检查 data 字段是否存在且为字典
                         if "data" not in detail or not isinstance(detail["data"], dict):
                             logger.debug(f"行为记录 {behavior['id']} 的 data 字段无效，跳过")
                             return None
@@ -224,23 +335,17 @@ class DataCollector:
                         behavior_data = detail["data"]
                         oper_result_str = behavior_data.get("operResult", "")
                         
-                        # 如果 operResult 为空，跳过这条记录
                         if not oper_result_str:
                             logger.debug(f"行为记录 {behavior['id']} 的 operResult 为空，跳过")
                             return None
 
                         try:
                             oper_result = json.loads(oper_result_str)
-                            logger.debug(f"解析后的 operResult 类型: {type(oper_result)}")
-                            logger.debug(f"解析后的 operResult 内容: {oper_result}")
-
-                            # 如果 operResult 是列表，取第一个元素
                             if isinstance(oper_result, list):
                                 if not oper_result:
                                     logger.debug(f"行为记录 {behavior['id']} 的 operResult 是空列表，跳过")
                                     return None
                                 oper_result = oper_result[0]
-                                logger.debug(f"使用列表中的第一个元素: {oper_result}")
 
                             if not isinstance(oper_result, dict):
                                 logger.error(f"解析后的 operResult 不是字典类型: {type(oper_result)}")
@@ -250,31 +355,26 @@ class DataCollector:
                             logger.error(f"解析 operResult 失败: {oper_result_str}")
                             return None
 
-                        # 获取评论和简介详情（如果适用）
+                        # 获取评论和简介详情
                         comments = []
                         intro = {}
-                        description = None  # 新增：用于存储简介信息
+                        description = None
 
                         if oper_result.get("businessId") and behavior_data.get("businessType"):
-                            if behavior_data["operaType"] in [3, 4, 5]:  # 点赞、评论、收藏
-                                comments = await self.get_comments(
-                                    oper_result["businessId"],
-                                    behavior_data["businessType"]
-                                )
-                                intro = await self.get_intro_detail(
-                                    oper_result["businessId"],
-                                    behavior_data["businessType"]
-                                )
-                                
-                                # 从 intro 中提取简介信息
-                                if intro and isinstance(intro, dict) and intro.get("data"):
-                                    intro_data = intro["data"]
-                                    # 根据不同的业务类型提取简介
-                                    if behavior_data["businessType"] == "Video":
-                                        description = intro_data.get("description")
-                                    elif behavior_data["businessType"] == "Article":
-                                        description = intro_data.get("content")
-                                    # 可以添加其他业务类型的简介提取逻辑
+                            comments = await self.get_comments(
+                                oper_result["businessId"],
+                                behavior_data["businessType"]
+                            )
+                            
+                            intro = await self.get_intro_detail(
+                                oper_result["businessId"],
+                                behavior_data["businessType"]
+                            )
+                            
+                            if behavior_data["businessType"] == "Video":
+                                description = intro.get("description", "")
+                            elif behavior_data["businessType"] == "Article":
+                                description = intro.get("content", "")
 
                         # 构建操作记录
                         record = {
@@ -287,13 +387,24 @@ class DataCollector:
                                 "title": oper_result.get("title"),
                                 "category": oper_result.get("categoryName"),
                                 "comments_count": len(comments),
-                                "intro_stats": self._extract_intro_stats(intro)
+                                "intro_stats": self._extract_intro_stats(intro),
+                                "description": description
                             }
                         }
 
-                        # 如果有简介信息，添加到记录中
-                        if description:
-                            record["detail"]["description"] = description
+                        # 添加特定类型的额外信息
+                        if behavior_data["businessType"] == "Video":
+                            record["detail"].update({
+                                "duration": intro.get("duration", 0),
+                                "cover_url": intro.get("cover_url", ""),
+                                "video_url": intro.get("video_url", "")
+                            })
+                        elif behavior_data["businessType"] == "Article":
+                            record["detail"].update({
+                                "cover_url": intro.get("cover_url", ""),
+                                "author": intro.get("author", ""),
+                                "publish_time": intro.get("publish_time", "")
+                            })
 
                         return record
 
@@ -306,13 +417,20 @@ class DataCollector:
             for behavior in behaviors:
                 tasks.append(asyncio.create_task(process_behavior(behavior)))
 
-            # 等待所有任务完成
-            results = await asyncio.gather(*tasks)
+            # 等待所有任务完成并处理结果
+            for task in asyncio.as_completed(tasks):
+                result = await task
+                if result:
+                    current_batch.append(result)
+                    if len(current_batch) >= self.batch_size:
+                        await self._process_batch(current_batch)
+                        current_batch = []
 
-            # 过滤掉None值并添加到操作列表
-            valid_results = [r for r in results if r is not None]
-            self.user_operations["operations"].extend(valid_results)
-            logger.info(f"成功处理 {len(valid_results)} 条有效行为记录")
+            # 处理剩余的记录
+            if current_batch:
+                await self._process_batch(current_batch)
+
+            logger.info(f"成功处理用户 {user_id} 的行为数据")
 
         except Exception as e:
             logger.error(f"处理用户 {user_id} 的行为数据时出错: {str(e)}")
@@ -337,42 +455,88 @@ class DataCollector:
 
     def _extract_intro_stats(self, intro: Dict) -> Dict:
         """提取简介统计数据"""
-        if not intro or not intro.get("data"):
+        if not intro:
             return {}
         
-        data = intro["data"]
         return {
-            "view_count": data.get("viewCount", 0),
-            "comment_count": data.get("commentCount", 0),
-            "praise_count": data.get("praiseCount", 0),
-            "collect_count": data.get("collectCount", 0),
-            "forward_count": data.get("forwardCount", 0)
+            "view_count": intro.get("view_count", 0),
+            "comment_count": intro.get("comment_count", 0),
+            "praise_count": intro.get("praise_count", 0),
+            "collect_count": intro.get("collect_count", 0),
+            "forward_count": intro.get("forward_count", 0)
         }
 
     def save_to_file(self, filename: str = "user_operations.json") -> None:
         """保存数据到JSON文件"""
-        self.user_operations["last_update"] = datetime.now().isoformat()
-        
         try:
-            # 保存到缓存目录
-            cache_file = os.path.join(self.cache_dir, filename)
-            with open(cache_file, 'w', encoding='utf-8') as f:
-                json.dump(self.user_operations, f, ensure_ascii=False, indent=2)
-            logger.info(f"数据已保存到 {cache_file}")
-
-            # 复制到主目录
-            with open(filename, 'w', encoding='utf-8') as f:
-                json.dump(self.user_operations, f, ensure_ascii=False, indent=2)
-            logger.info(f"数据已复制到 {filename}")
+            # 从数据库读取数据
+            with self.engine.connect() as conn:
+                df = pd.read_sql("SELECT * FROM user_operations", conn)
+                
+                # 转换为JSON格式
+                operations = []
+                for _, row in df.iterrows():
+                    operation = {
+                        "user_id": row['user_id'],
+                        "action": row['action'],
+                        "time": row['time'],
+                        "detail": {
+                            "business_type": row['business_type'],
+                            "business_id": row['business_id'],
+                            "title": row['title'],
+                            "category": row['category'],
+                            "comments_count": row['comments_count'],
+                            "intro_stats": {
+                                "view_count": row['view_count'],
+                                "comment_count": row['comments_count'],
+                                "praise_count": row['praise_count'],
+                                "collect_count": row['collect_count'],
+                                "forward_count": row['forward_count']
+                            }
+                        }
+                    }
+                    
+                    # 添加特定类型的额外信息
+                    if row['business_type'] == "Video":
+                        operation["detail"].update({
+                            "duration": row['duration'],
+                            "cover_url": row['cover_url'],
+                            "video_url": row['video_url']
+                        })
+                    elif row['business_type'] == "Article":
+                        operation["detail"].update({
+                            "cover_url": row['cover_url'],
+                            "author": row['author'],
+                            "publish_time": row['publish_time']
+                        })
+                    
+                    operations.append(operation)
+                
+                data = {
+                    "operations": operations,
+                    "last_update": datetime.now().isoformat()
+                }
+                
+                # 保存到文件
+                with open(filename, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                logger.info(f"数据已保存到 {filename}")
+                
+                # 保存到缓存目录
+                cache_file = os.path.join(self.cache_dir, filename)
+                with open(cache_file, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                logger.info(f"数据已保存到 {cache_file}")
+                
         except Exception as e:
             logger.error(f"保存文件时出错: {str(e)}")
 
 async def main():
     # 创建数据采集器
-    collector = DataCollector()
+    collector = DataCollector(batch_size=1000)
 
     # 要采集的用户ID列表
-    user_ids = [1, 5]  # 要采集的用户ID列表
+    user_ids = [1, 8]  # 要采集的用户ID列表
 
     # 处理每个用户的数据
     for user_id in user_ids:

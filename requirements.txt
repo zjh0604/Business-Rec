@@ -149,3 +149,6 @@ seaborn==0.13.2
 pyarrow==19.0.1
 Flask==3.0.2
 gradio==4.19.2
+asyncio==3.4.3
+pandas==2.1.4
+pytz==2023.3.post1

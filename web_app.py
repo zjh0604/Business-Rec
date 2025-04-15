@@ -7,6 +7,8 @@ import logging
 import sqlite3
 import json
 from user_feedback import user_feedback
+from behavior_analyzer import BehaviorAnalyzer
+from personality_score_calculator import PersonalityScoreCalculator
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
@@ -415,6 +417,144 @@ def get_server_info():
     except Exception as e:
         logger.error(f"Error getting server info: {str(e)}")
         return "unknown", "unknown"
+
+def process_user_analysis(user_id):
+    """Process user analysis and return results"""
+    try:
+        profile = query_personality_score(user_id)
+
+        if profile is None:
+            return {
+                'success': False,
+                'error': f'未找到用户ID {user_id} 的性格数据，请确保该用户已存在于数据库中。'
+            }
+
+        # Create initial personality scores dictionary
+        initial_scores = {}
+        columns = query_columns()
+        print(f"Processing profile: {profile}")  # 添加日志
+        print(f"Using columns: {columns}")  # 添加日志
+
+        for col, val in zip(columns, profile):
+            if col != 'id':  # Skip the id column
+                initial_scores[col] = val
+
+        # 获取用户特定的操作日志
+        user_operations = get_user_operations(user_id)
+        
+        # 限制操作日志的长度
+        max_operations = 50  # 减少处理的操作记录数量
+        if len(user_operations['ops']) > max_operations:
+            user_operations['ops'] = user_operations['ops'][:max_operations]
+            logger.warning(f"操作日志超过{max_operations}条，只处理前{max_operations}条")
+        
+        # 使用行为分析器分析用户行为
+        behavior_analyzer = BehaviorAnalyzer()
+        behavior_summary = behavior_analyzer.analyze_user_behavior(user_id, user_operations['ops'])
+        
+        # 使用性格分数计算器计算新分数
+        calculator = PersonalityScoreCalculator()
+        new_scores = calculator.update_personality_scores(behavior_summary, initial_scores)
+        
+        # 生成更新原因
+        update_reasons = {}
+        for trait in new_scores:
+            reasons = calculator.get_score_change_reasons(behavior_summary, trait)
+            if reasons:
+                update_reasons[trait] = reasons
+
+        # 构建用户画像字符串
+        user_profile = f"用户的三魂六魄画像：id = {user_id}"
+        for col, val in zip(columns, profile):
+            user_profile += f", {col} = {val}"
+        user_profile += "."
+
+        # 生成新的画像
+        prompt_profile = """
+        请分析以下用户信息并生成更新后的用户画像：
+
+        [用户基本信息]
+        {user_profile}
+
+        [用户行为分析]
+        {behavior_summary}
+
+        [性格特征更新]
+        {score_changes}
+
+        请按以下步骤分析：
+
+        1. 行为分析总结：
+        - 总结用户的主要行为模式
+        - 分析行为反映的性格特征
+        - 解释行为与性格特征的关联
+
+        2. 分数变化分析：
+        - 解释每个性格特征分数变化的原因
+        - 说明变化的具体依据
+        - 分析变化的合理性
+
+        3. 用户画像更新：
+        - 生成更新后的用户画像描述
+        - 突出重要的性格特征变化
+        - 预测用户未来的行为趋势
+
+        请按以下格式输出分析结果：
+
+        === 用户画像分析 ===
+        用户ID：{user_id}
+
+        [行为模式分析]
+        {behavior_patterns}
+
+        [性格特征变化]
+        {trait_changes}
+
+        [更新后的用户画像]
+        {new_profile}
+        """
+
+        # 格式化prompt
+        formatted_prompt = prompt_profile.format(
+            user_id=user_id,
+            user_profile=user_profile,
+            behavior_summary=json.dumps(behavior_summary, ensure_ascii=False),
+            score_changes=json.dumps(update_reasons, ensure_ascii=False)
+        )
+
+        # 使用RAG进行分析
+        result_profile = ''.join(
+            answer_user_query("rag_shqp", formatted_prompt))
+
+        # 生成热力图
+        create_heatmap(initial_scores, f"Initial Personality Heatmap for User {user_id}",
+                    f"initial_heatmap_{user_id}.png")
+        create_heatmap(new_scores, f"Updated Personality Heatmap for User {user_id}",
+                    f"updated_heatmap_{user_id}.png")
+        create_comparison_heatmap(initial_scores, new_scores,
+                                f"Personality Scores Comparison for User {user_id}",
+                                f"comparison_heatmap_{user_id}.png")
+
+        # 获取推荐内容
+        recommended_items = generate_recommendations(user_id, new_scores)
+
+        return {
+            'success': True,
+            'summary': behavior_summary,
+            'profile': result_profile,
+            'recommendations': recommended_items,
+            'images': {
+                'initial': f"initial_heatmap_{user_id}.png",
+                'updated': f"updated_heatmap_{user_id}.png",
+                'comparison': f"comparison_heatmap_{user_id}.png"
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error in process_user_analysis: {str(e)}")
+        return {
+            'success': False,
+            'error': str(e)
+        }
 
 if __name__ == '__main__':
     try:
