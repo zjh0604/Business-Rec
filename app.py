@@ -7,7 +7,7 @@ from db_operation import create_chroma_db, answer_without_chroma_db, answer_user
 from visualization import create_heatmap, create_comparison_heatmap
 from sohu_api import SohuGlobalAPI
 from my_qianfan_llm import llm
-from flask import Blueprint, request, jsonify, render_template, current_app
+from quart import Blueprint, request, jsonify, render_template, current_app
 import logging
 from content_manager import content_manager
 from user_feedback import user_feedback
@@ -15,7 +15,7 @@ from personality_score import PersonalityScoreCalculator
 from typing import List, Dict
 
 # 配置日志
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # 创建蓝图
@@ -224,12 +224,16 @@ def get_user_operations(user_id):
         # 如果出错，返回空操作日志
         return {"ops": []}  # 使用更短的键名
 
-def process_user_analysis(user_id):
+async def process_user_analysis(user_id):
     """Process user analysis and return results"""
     try:
+        logger.debug(f"Starting analysis for user {user_id}")
+        
         profile = query_personality_score(user_id)
+        logger.debug(f"Retrieved profile: {profile}")
 
         if profile is None:
+            logger.error(f"No profile found for user {user_id}")
             return {
                 'success': False,
                 'error': f'未找到用户ID {user_id} 的性格数据，请确保该用户已存在于数据库中。'
@@ -238,15 +242,16 @@ def process_user_analysis(user_id):
         # Create initial personality scores dictionary
         initial_scores = {}
         columns = query_columns()
-        print(f"Processing profile: {profile}")  # 添加日志
-        print(f"Using columns: {columns}")  # 添加日志
+        logger.debug(f"Using columns: {columns}")
 
         for col, val in zip(columns, profile):
             if col != 'id':  # Skip the id column
                 initial_scores[col] = val
+        logger.debug(f"Initial scores: {initial_scores}")
 
         # 获取用户特定的操作日志
         user_operations = get_user_operations(user_id)
+        logger.debug(f"Retrieved user operations: {user_operations}")
         
         # 限制操作日志的长度
         max_operations = 50  # 减少处理的操作记录数量
@@ -254,133 +259,128 @@ def process_user_analysis(user_id):
             user_operations['ops'] = user_operations['ops'][:max_operations]
             logger.warning(f"操作日志超过{max_operations}条，只处理前{max_operations}条")
         
-        # 使用更紧凑的JSON格式
-        user_operation_diary = json.dumps(user_operations, ensure_ascii=False, separators=(',', ':'))
+        # 使用行为分析器分析用户行为
+        behavior_analyzer = BehaviorAnalyzer()
+        logger.debug("Starting behavior analysis")
+        behavior_summary = await behavior_analyzer.analyze_user_behavior(user_id, user_operations['ops'])
+        logger.debug(f"Behavior analysis completed. Summary: {behavior_summary}")
+        
+        # 使用性格分数计算器计算新分数
+        calculator = PersonalityScoreCalculator()
+        new_scores = calculator.update_personality_scores(behavior_summary, initial_scores)
+        logger.debug(f"Updated scores: {new_scores}")
+        
+        # 将新分数写回数据库
+        try:
+            conn = sqlite3.connect("user.db")
+            cursor = conn.cursor()
+            
+            # 构建更新语句
+            update_cols = []
+            update_vals = []
+            for col, val in new_scores.items():
+                if col != 'id':  # 跳过id列
+                    update_cols.append(f"{col} = ?")
+                    update_vals.append(val)
+            
+            if update_cols:
+                update_query = f"UPDATE personality SET {', '.join(update_cols)} WHERE id = ?"
+                update_vals.append(user_id)
+                cursor.execute(update_query, update_vals)
+                conn.commit()
+                logger.info(f"Successfully updated personality scores for user {user_id}")
+        except Exception as e:
+            logger.error(f"Error updating personality scores in database: {str(e)}")
+            raise
+        finally:
+            if conn:
+                conn.close()
+        
+        # 生成更新原因
+        update_reasons = {}
+        for trait in new_scores:
+            if trait in initial_scores:
+                old_score = float(initial_scores.get(trait, 0) or 0)
+                new_score = float(new_scores.get(trait, 0) or 0)
+                score_change = new_score - old_score
+                
+                if abs(score_change) > 0.1:  # 只记录有显著变化的特征
+                    reasons = calculator.get_score_change_reasons(behavior_summary, trait)
+                    update_reasons[trait] = {
+                        'old_score': old_score,
+                        'new_score': new_score,
+                        'change': score_change,
+                        'reasons': reasons or ['基于用户最近的行为模式']
+                    }
+        logger.debug(f"Update reasons: {update_reasons}")
 
         # 构建用户画像字符串
-        user_profile = f"用户的三魂六魄画像：id = {user_id}"
-        for col, val in zip(columns, profile):
-            user_profile += f", {col} = {val}"
-        user_profile += "."
-
-        # 生成操作总结
-        prompt_diary = """
-        请根据用户的操作日志进行客观的统计分析，重点关注以下几个方面：
-
-        1. 时间维度：
-        - 统计30天内各类操作的频率
-        - 计算用户在不同类型内容上的时长
-
-        2. 内容偏好：
-        - 统计用户观看/阅读的内容类型（如爱情、古装、旅游等）及其具体次数
-        - 分析用户对不同类型内容的互动方式（浏览、点赞、评论、收藏等）的具体次数
-
-        请按以下格式输出分析结果：
-        1. 时间统计：
-        - 用户在[具体日期]进行了[具体操作]，共计[次数]次
-        - 用户在[时间段]内观看[具体类型]内容[次数]次
+        user_profile = f"用户ID：{user_id}\n\n"
         
-        2. 内容偏好：
-        - 观看类型：[类型1]内容[次数]次，[类型2]内容[次数]次...
-        - 互动方式：[方式1][次数]次，[方式2][次数]次...
+        # 添加行为分析
+        if behavior_summary.get('behavior_categories'):
+            user_profile += "行为分析：\n"
+            for category, details in behavior_summary['behavior_categories'].items():
+                user_profile += f"- {category}：{details['behavior_type']} ({details['count']}次)\n"
         
-        3. 行为总结：
-        用户在过去30天内共进行了[总次数]次操作，其中：
-        - 观看行为：[具体统计，如'爱情类13次，古装剧8次...']
-        - 互动行为：[具体统计，如'点赞21次，评论15次...']
-        - 时间分布：[具体统计，如'工作日占60%，周末占40%...']
-
-        注意：
-        1. 请尽可能详细地列出具体的数字统计
-        2. 对于每种类型的内容和互动方式，都需要给出准确的次数
-        3. 所有统计都要基于30天为周期
-        """
+        # 添加特征分析
+        if behavior_summary.get('trait_analysis'):
+            user_profile += "\n性格特征分析：\n"
+            for trait, analysis in behavior_summary['trait_analysis'].items():
+                user_profile += f"- {trait}：\n"
+                user_profile += f"  相关行为：{', '.join(analysis['related_behaviors'])}\n"
+                user_profile += f"  行为强度：{analysis['behavior_strength']}\n"
+                user_profile += f"  影响程度：{analysis['impact_level']}\n"
         
-        # 检查总长度是否超过限制
-        total_length = len(user_operation_diary) + len(prompt_diary)
-        if total_length > 20000:  # 留出一些余量
-            # 如果超过限制，截取部分操作日志
-            max_diary_length = 20000 - len(prompt_diary)
-            user_operation_diary = user_operation_diary[:max_diary_length]
-            logger.warning(f"操作日志超过长度限制，已截取前{max_diary_length}个字符")
+        # 添加分数变化
+        if update_reasons:
+            user_profile += "\n性格特征变化：\n"
+            for trait, details in update_reasons.items():
+                user_profile += f"- {trait}：{details['old_score']:.1f} -> {details['new_score']:.1f} "
+                user_profile += f"(变化：{details['change']:+.1f})\n"
+                if details['reasons']:
+                    user_profile += f"  原因：{', '.join(details['reasons'])}\n"
         
-        result_summary = ''.join(answer_without_chroma_db(user_operation_diary + prompt_diary))
+        logger.debug(f"User profile string: {user_profile}")
 
         # 生成新的画像
-        prompt_profile = """
-        请分析以下用户信息并生成更新后的用户画像：
+        prompt = """
+        请根据以下用户信息生成详细的用户画像分析：
 
-        [用户基本信息]
         {user_profile}
 
-        [用户行为统计]
-        {result_summary}
+        请从以下几个方面进行分析：
 
-        请按以下步骤分析：
+        1. 行为模式总结：
+        - 分析用户的主要行为类型和频率
+        - 总结用户的内容偏好和使用习惯
+        - 识别用户的典型行为特征
 
-        1. 识别关键行为数据：
-        - 从行为统计中提取具体的行为数据（如观看次数、互动频率等）
-        - 重点关注与性格特征相关的行为模式
+        2. 性格特征解读：
+        - 分析性格特征的变化原因
+        - 解释行为与性格特征的关联
+        - 评估性格特征变化的合理性
 
-        2. 知识库匹配分析：
-        - 将每个关键行为与知识库中的评分标准进行匹配
-        - 明确指出行为数据是如何对应到评分标准的
-        - 对每个匹配项给出具体的评分依据
+        3. 用户画像更新：
+        - 基于最新数据更新用户画像
+        - 突出关键的性格特征变化
+        - 预测用户未来的行为趋势
 
-        3. 分数更新说明：
-        - 解释每个性格特征的分数变化原因
-        - 引用具体的知识库标准作为依据
-        - 说明分数计算的具体过程
-
-        请按以下格式输出分析结果：
-
-        === 用户画像分析 ===
-        用户ID：{user_id}
-
-        [行为-知识库匹配分析]
-        1. 行为：[具体行为数据]
-           知识库匹配：[对应的评分标准]
-        
-
-        2. 行为：[具体行为数据]
-           知识库匹配：[对应的评分标准]
-        
-        ...（列出有知识库匹配的行为，没有关联的行为不要列出）
-     
-
-        [性格特征更新]
-        - 特征1：旧分数 -> 新分数
-          变化原因：[基于上述哪些行为匹配，引用具体的知识库标准]
-          
-        - 特征2：旧分数 -> 新分数
-          变化原因：[基于上述哪些行为匹配，引用具体的知识库标准]
-
-        注意：
-        1. 必须明确展示行为数据与知识库标准的对应关系
-        2. 每个分数变化都必须有具体的知识库标准支持
-        3. 分数计算过程要清晰可追踪
+        请生成一个全面且具体的分析报告。
         """
 
         # 格式化prompt
-        formatted_prompt = prompt_profile.format(
-            user_id=user_id,
-            user_profile=user_profile,
-            result_summary=result_summary
-        )
+        logger.debug("Formatting prompt")
+        formatted_prompt = prompt.format(user_profile=user_profile)
+        logger.debug(f"Formatted prompt: {formatted_prompt}")
 
         # 使用RAG进行分析
-        result_profile = ''.join(
-            answer_user_query("rag_shqp", formatted_prompt))
-
-        # 提取新分数
-        new_scores = extract_scores_from_text(result_profile)
-
-        # 确保新分数包含所有原始特征
-        for trait in initial_scores.keys():
-            if trait not in new_scores:
-                new_scores[trait] = initial_scores[trait]
+        logger.debug("Starting RAG analysis")
+        result_profile = ''.join(answer_user_query("rag_shqp", formatted_prompt))
+        logger.debug(f"RAG analysis completed. Result: {result_profile}")
 
         # 生成热力图
+        logger.debug("Generating heatmaps")
         create_heatmap(initial_scores, f"Initial Personality Heatmap for User {user_id}",
                     f"initial_heatmap_{user_id}.png")
         create_heatmap(new_scores, f"Updated Personality Heatmap for User {user_id}",
@@ -390,11 +390,14 @@ def process_user_analysis(user_id):
                                 f"comparison_heatmap_{user_id}.png")
 
         # 获取推荐内容
-        recommended_items = generate_recommendations(user_id, new_scores)
+        logger.debug("Getting recommendations")
+        recommended_items = content_manager.get_recommendations(new_scores)
+        logger.debug(f"Recommendations: {recommended_items}")
 
-        return {
+        # 构建返回结果
+        result = {
             'success': True,
-            'summary': result_summary,
+            'summary': behavior_summary,
             'profile': result_profile,
             'recommendations': recommended_items,
             'images': {
@@ -403,30 +406,34 @@ def process_user_analysis(user_id):
                 'comparison': f"comparison_heatmap_{user_id}.png"
             }
         }
+        
+        logger.debug(f"Returning result: {result}")
+        return result
+        
     except Exception as e:
-        logger.error(f"Error in process_user_analysis: {str(e)}")
+        logger.error(f"Error in process_user_analysis: {str(e)}", exc_info=True)
         return {
             'success': False,
             'error': str(e)
         }
 
 @api.route('/')
-def index():
+async def index():
     """显示主页"""
     logger.debug("Accessing index page")
-    return render_template('index.html')
+    return await render_template('index.html')
 
 @api.route('/users')
-def users():
+async def users():
     """显示用户管理页面"""
     logger.debug("Accessing user management page")
-    return render_template('users.html')
+    return await render_template('users.html')
 
 @api.route('/analyze', methods=['POST'])
-def analyze():
+async def analyze():
     """处理用户分析请求"""
     try:
-        data = request.get_json()
+        data = await request.get_json()
         user_id = data.get('user_id')
         logger.info(f"Received analysis request for user_id: {user_id}")
 
@@ -437,7 +444,7 @@ def analyze():
                 'error': 'No user_id provided'
             })
 
-        result = process_user_analysis(user_id)
+        result = await process_user_analysis(user_id)
         logger.info(f"Analysis completed for user_id: {user_id}")
         return jsonify(result)
 
@@ -449,10 +456,10 @@ def analyze():
         })
 
 @api.route('/feedback', methods=['POST'])
-def handle_feedback():
+async def handle_feedback():
     """处理用户交互反馈"""
     try:
-        data = request.get_json()
+        data = await request.get_json()
         if not data:
             logger.error("No JSON data received")
             return jsonify({
@@ -516,12 +523,12 @@ def handle_feedback():
         }), 500
 
 @api.route('/data_update')
-def data_update():
+async def data_update():
     """显示数据更新页面"""
-    return render_template('data_update.html')
+    return await render_template('data_update.html')
 
 @api.route('/update_user_data', methods=['POST'])
-def update_user_data():
+async def update_user_data():
     """更新用户数据"""
     try:
         logger.debug("Starting user data update")
@@ -553,7 +560,7 @@ def update_user_data():
         }), 500
 
 @api.route('/user_behavior/<user_id>', methods=['GET'])
-def get_user_behavior(user_id):
+async def get_user_behavior(user_id):
     """获取用户行为历史"""
     try:
         history = user_feedback.get_user_behavior_history(user_id)

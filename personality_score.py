@@ -17,10 +17,13 @@ class PersonalityScoreCalculator:
         self.max_score = max_score
 
     def calculate_time_weight(self, operation_time: str) -> float:
-        """计算时间权重"""
+        """计算时间权重，使用指数衰减函数"""
         try:
-            op_time = datetime.strptime(operation_time, "%Y-%m-%d %H:%M:%S")
-            time_diff = (datetime.now() - op_time).days
+            # 解析操作时间
+            op_time = datetime.strptime(operation_time, "%Y-%m-%d")
+            current_time = datetime.now()
+            time_diff = (current_time - op_time).days
+            
             # 使用指数衰减函数计算权重
             weight = np.exp(-self.time_decay_factor * time_diff / self.base_time_window)
             return float(weight)
@@ -34,7 +37,10 @@ class PersonalityScoreCalculator:
         """计算单个行为的得分"""
         try:
             # 获取行为强度
-            behavior_strength = behavior.get('behavior_strength', 1.0)
+            behavior_strength = behavior.get('behavior_strength', '中')
+            strength_weights = {'高': 1.5, '中': 1.0, '低': 0.5, '较高': 1.3, '较低': 0.7}
+            strength_weight = strength_weights.get(behavior_strength, 1.0)
+            
             # 获取影响程度
             impact_level = behavior.get('impact_level', '中')
             impact_weights = {'高': 1.5, '中': 1.0, '低': 0.5}
@@ -44,10 +50,10 @@ class PersonalityScoreCalculator:
             time_weight = self.calculate_time_weight(operation_time)
             
             # 计算基础分数
-            base_score = behavior_strength * 10.0
+            base_score = 50.0  # 基础分数设为50
             
             # 综合计算得分
-            score = base_score * impact_weight * time_weight
+            score = base_score * strength_weight * impact_weight * time_weight
             return min(self.max_score, max(self.min_score, score))
             
         except Exception as e:
@@ -61,25 +67,41 @@ class PersonalityScoreCalculator:
         """计算特定性格特征的得分"""
         try:
             # 获取该性格特征相关的所有行为
-            trait_behaviors = behavior_summary.get('trait_analysis', {}).get(trait, [])
+            trait_behaviors = behavior_summary.get('trait_analysis', {}).get(trait, {})
             
             if not trait_behaviors:
                 return current_score
             
+            # 获取相关行为列表
+            related_behaviors = trait_behaviors.get('related_behaviors', [])
+            if not related_behaviors:
+                return current_score
+            
+            # 从 raw_stats 中获取时间信息
+            time_distribution = behavior_summary.get('raw_stats', {}).get('time_distribution', {})
+            operation_time = None
+            if time_distribution:
+                operation_time = list(time_distribution.keys())[0]  # 使用最新的时间
+            
+            if not operation_time:
+                operation_time = datetime.now().strftime("%Y-%m-%d")
+            
             # 计算所有相关行为的得分
             total_score = 0.0
-            for behavior in trait_behaviors:
-                score = self.calculate_behavior_score(
-                    behavior,
-                    behavior.get('time', datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-                )
+            for behavior in related_behaviors:
+                # 创建行为字典
+                behavior_dict = {
+                    'behavior_strength': trait_behaviors.get('behavior_strength', '中'),
+                    'impact_level': trait_behaviors.get('impact_level', '中')
+                }
+                score = self.calculate_behavior_score(behavior_dict, operation_time)
                 total_score += score
             
             # 计算平均得分
-            avg_score = total_score / len(trait_behaviors)
+            avg_score = total_score / len(related_behaviors)
             
-            # 更新当前分数
-            new_score = current_score + (avg_score - 50) * 0.1  # 调整幅度
+            # 更新当前分数，使用加权平均
+            new_score = current_score * 0.7 + avg_score * 0.3
             return min(self.max_score, max(self.min_score, new_score))
             
         except Exception as e:
@@ -104,14 +126,17 @@ class PersonalityScoreCalculator:
                                 trait: str) -> List[str]:
         """获取分数变化的原因"""
         reasons = []
-        trait_behaviors = behavior_summary.get('trait_analysis', {}).get(trait, [])
+        trait_behaviors = behavior_summary.get('trait_analysis', {}).get(trait, {})
         
-        for behavior in trait_behaviors:
-            reason = f"用户执行了{behavior['action']}操作"
-            if 'content_title' in behavior:
-                reason += f"（内容：{behavior['content_title']}）"
-            if 'impact_level' in behavior:
-                reason += f"，影响程度：{behavior['impact_level']}"
+        if not trait_behaviors:
+            return reasons
+        
+        related_behaviors = trait_behaviors.get('related_behaviors', [])
+        behavior_strength = trait_behaviors.get('behavior_strength', '中')
+        impact_level = trait_behaviors.get('impact_level', '中')
+        
+        for behavior in related_behaviors:
+            reason = f"用户{behavior}，行为强度：{behavior_strength}，影响程度：{impact_level}"
             reasons.append(reason)
         
         return reasons 

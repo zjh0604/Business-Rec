@@ -1,20 +1,27 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
-from app import process_user_analysis, query_personality_score, query_columns
-from db_operation import create_chroma_db
+from app import process_user_analysis, query_personality_score, query_columns, get_user_operations
+from db_operation import create_chroma_db, answer_user_query
 import socket
 import logging
 import sqlite3
 import json
 from user_feedback import user_feedback
 from behavior_analyzer import BehaviorAnalyzer
-from personality_score_calculator import PersonalityScoreCalculator
+from personality_score import PersonalityScoreCalculator
+from visualization import create_heatmap, create_comparison_heatmap
+from content_manager import ContentManager
+import asyncio
+from quart import Quart, render_template, jsonify, send_from_directory, request
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-app = Flask(__name__)
+# 使用 Quart 替代 Flask 以支持异步操作
+app = Quart(__name__)
+
+# 创建内容管理器实例
+content_manager = ContentManager()
 
 # 确保输出目录存在
 if not os.path.exists('output'):
@@ -72,12 +79,12 @@ def init_database():
 init_database()
 
 @app.route('/')
-def index():
+async def index():
     logger.debug("Accessing index page")
-    return render_template('index.html')
+    return await render_template('index.html')
 
 @app.route('/users')
-def user_management():
+async def user_management():
     logger.debug("Accessing user management page")
     try:
         # 连接数据库
@@ -87,16 +94,16 @@ def user_management():
         cursor = c.execute("SELECT DISTINCT id FROM personality")
         user_ids = [row[0] for row in cursor.fetchall()]
         conn.close()
-        return render_template('users.html', user_ids=user_ids)
+        return await render_template('users.html', user_ids=user_ids)
     except Exception as e:
         logger.error(f"Error accessing user management: {str(e)}")
-        return render_template('users.html', user_ids=[], error=str(e))
+        return await render_template('users.html', user_ids=[], error=str(e))
 
 @app.route('/analyze', methods=['POST'])
-def analyze():
+async def analyze():
     try:
         # 获取JSON数据
-        data = request.get_json()
+        data = await request.get_json()
         user_id = data.get('user_id')
         
         if not user_id:
@@ -109,8 +116,9 @@ def analyze():
         logger.debug(f"Processing analysis for user_id: {user_id}")
         
         # 处理用户分析
-        results = process_user_analysis(user_id)
-                # 确保推荐内容格式正确
+        results = await process_user_analysis(user_id)
+        
+        # 确保推荐内容格式正确
         if 'recommendations' in results:
             if isinstance(results['recommendations'], str):
                 # 如果推荐内容是字符串，转换为数组格式
@@ -148,12 +156,12 @@ def analyze():
         })
 
 @app.route('/output/<path:filename>')
-def serve_image(filename):
+async def serve_image(filename):
     logger.debug(f"Serving image: {filename}")
-    return send_from_directory('output', filename)
+    return await send_from_directory('output', filename)
 
 @app.route('/get_personality/<user_id>')
-def get_personality(user_id):
+async def get_personality(user_id):
     logger.debug(f"Getting personality data for user_id: {user_id}")
     try:
         # 连接数据库
@@ -207,7 +215,7 @@ def get_personality(user_id):
         conn.close()
 
 @app.route('/get_recent_changes/<user_id>')
-def get_recent_changes(user_id):
+async def get_recent_changes(user_id):
     logger.debug(f"Getting recent changes for user_id: {user_id}")
     try:
         # 首先尝试从数据库获取数据
@@ -310,10 +318,10 @@ def get_recent_changes(user_id):
         conn.close()
 
 @app.route('/feedback', methods=['POST'])
-def handle_feedback():
+async def handle_feedback():
     """处理用户交互反馈"""
     try:
-        data = request.get_json()
+        data = await request.get_json()
         if not data:
             logger.error("No JSON data received")
             return jsonify({
@@ -378,7 +386,7 @@ def handle_feedback():
         }), 500
 
 @app.route('/update_user_data', methods=['POST'])
-def update_user_data():
+async def update_user_data():
     """更新用户数据"""
     try:
         logger.debug("Starting user data update")
@@ -418,7 +426,7 @@ def get_server_info():
         logger.error(f"Error getting server info: {str(e)}")
         return "unknown", "unknown"
 
-def process_user_analysis(user_id):
+async def process_user_analysis(user_id):
     """Process user analysis and return results"""
     try:
         profile = query_personality_score(user_id)
@@ -450,24 +458,38 @@ def process_user_analysis(user_id):
         
         # 使用行为分析器分析用户行为
         behavior_analyzer = BehaviorAnalyzer()
-        behavior_summary = behavior_analyzer.analyze_user_behavior(user_id, user_operations['ops'])
+        behavior_summary = await behavior_analyzer.analyze_user_behavior(user_id, user_operations['ops'])
         
         # 使用性格分数计算器计算新分数
         calculator = PersonalityScoreCalculator()
         new_scores = calculator.update_personality_scores(behavior_summary, initial_scores)
+        logger.debug(f"Updated scores: {new_scores}")
         
         # 生成更新原因
         update_reasons = {}
         for trait in new_scores:
+            # 计算分数变化，确保处理 None 值
+            old_score = float(initial_scores.get(trait, 0) or 0)
+            new_score = float(new_scores.get(trait, 0) or 0)
+            score_change = new_score - old_score
+            
+            # 获取变化原因
             reasons = calculator.get_score_change_reasons(behavior_summary, trait)
             if reasons:
-                update_reasons[trait] = reasons
+                update_reasons[trait] = {
+                    'old_score': old_score,
+                    'new_score': new_score,
+                    'change': score_change,
+                    'reasons': reasons
+                }
+        logger.debug(f"Update reasons: {update_reasons}")
 
         # 构建用户画像字符串
-        user_profile = f"用户的三魂六魄画像：id = {user_id}"
-        for col, val in zip(columns, profile):
-            user_profile += f", {col} = {val}"
+        user_profile = f"用户的性格特征画像：id = {user_id}"
+        for trait, scores in update_reasons.items():
+            user_profile += f"\n{trait}: {scores['old_score']:.1f} -> {scores['new_score']:.1f} (变化: {scores['change']:.1f})"
         user_profile += "."
+        logger.debug(f"User profile string: {user_profile}")
 
         # 生成新的画像
         prompt_profile = """
@@ -477,7 +499,7 @@ def process_user_analysis(user_id):
         {user_profile}
 
         [用户行为分析]
-        {behavior_summary}
+        {trait_analysis}
 
         [性格特征更新]
         {score_changes}
@@ -504,23 +526,46 @@ def process_user_analysis(user_id):
         === 用户画像分析 ===
         用户ID：{user_id}
 
-        [行为模式分析]
-        {behavior_patterns}
+        [行为分析]
+        {trait_analysis}
 
-        [性格特征变化]
-        {trait_changes}
+        [性格特征更新]
+        {score_changes}
 
         [更新后的用户画像]
-        {new_profile}
+        请根据以上分析生成更新后的用户画像。
         """
 
         # 格式化prompt
-        formatted_prompt = prompt_profile.format(
-            user_id=user_id,
-            user_profile=user_profile,
-            behavior_summary=json.dumps(behavior_summary, ensure_ascii=False),
-            score_changes=json.dumps(update_reasons, ensure_ascii=False)
-        )
+        logger.debug("Formatting prompt with trait analysis")
+        try:
+            # 确保 trait_analysis 存在且格式正确
+            trait_analysis = behavior_summary.get('trait_analysis', {})
+            logger.debug(f"Retrieved trait_analysis: {trait_analysis}")
+            
+            # 确保 trait_analysis 可以被序列化为 JSON
+            try:
+                json.dumps(trait_analysis, ensure_ascii=False)
+            except Exception as e:
+                logger.error(f"Error serializing trait_analysis: {str(e)}")
+                trait_analysis = {'error': '无法序列化特征分析'}
+            
+            formatted_prompt = prompt_profile.format(
+                user_id=user_id,
+                user_profile=user_profile,
+                trait_analysis=json.dumps(trait_analysis, ensure_ascii=False),
+                score_changes=json.dumps(update_reasons, ensure_ascii=False)
+            )
+            logger.debug(f"Formatted prompt: {formatted_prompt}")
+        except Exception as e:
+            logger.error(f"Error formatting prompt: {str(e)}", exc_info=True)
+            # 使用默认值格式化 prompt
+            formatted_prompt = prompt_profile.format(
+                user_id=user_id,
+                user_profile=user_profile,
+                trait_analysis=json.dumps({'error': '无法格式化特征分析'}, ensure_ascii=False),
+                score_changes=json.dumps(update_reasons, ensure_ascii=False)
+            )
 
         # 使用RAG进行分析
         result_profile = ''.join(
@@ -536,7 +581,7 @@ def process_user_analysis(user_id):
                                 f"comparison_heatmap_{user_id}.png")
 
         # 获取推荐内容
-        recommended_items = generate_recommendations(user_id, new_scores)
+        recommended_items = content_manager.get_recommendations(new_scores)
 
         return {
             'success': True,
@@ -571,7 +616,7 @@ if __name__ == '__main__':
         print("\nStarting server...")
         
         # 使用0.0.0.0作为host，允许所有网络接口的连接
-        app.run(debug=True, host='0.0.0.0', port=8080, threaded=True)
+        app.run(debug=True, host='0.0.0.0', port=8080)
     except Exception as e:
         logger.error(f"Failed to start server: {str(e)}")
         raise 
