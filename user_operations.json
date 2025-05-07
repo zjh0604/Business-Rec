@@ -25,50 +25,6 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-07 17:18:55",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 123,
-        "title": "大唐小神探-第2集",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 7,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/6fc18d7d9a44473a8c8c0b4cb770f908.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-07 17:18:55",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 124,
-        "title": "大唐小神探-第3集",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/61a7dde072af44d682671cdb8e4ac2d9.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
       "time": "2025-04-07 17:16:52",
       "detail": {
         "business_type": "Video",
@@ -91,6 +47,50 @@
     {
       "user_id": "1",
       "action": "view_detail",
+      "time": "2025-04-07 17:18:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 124,
+        "title": "大唐小神探-第3集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/61a7dde072af44d682671cdb8e4ac2d9.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 123,
+        "title": "大唐小神探-第2集",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 7,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/6fc18d7d9a44473a8c8c0b4cb770f908.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
       "time": "2025-04-07 17:18:56",
       "detail": {
         "business_type": "Video",
@@ -108,6 +108,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b3462a454c0647a19794d1311ca1e6df.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:56",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 2,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ef5747070b4f42ff9d89dd2ccb08b4b6.mp4"
       }
     },
     {
@@ -138,9 +160,9 @@
       "time": "2025-04-07 17:18:56",
       "detail": {
         "business_type": "Video",
-        "business_id": 112,
-        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
-        "category": "旅游",
+        "business_id": 100,
+        "title": "10",
+        "category": "奇幻",
         "comments_count": 0,
         "intro_stats": {
           "view_count": 2,
@@ -151,29 +173,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ef5747070b4f42ff9d89dd2ccb08b4b6.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-07 17:18:57",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 96,
-        "title": "6",
-        "category": "奇幻",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 6,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c332e4949929425581d8278bdbf68e9f.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/59737890154e4cf0895e1c42dab0ceb5.mp4"
       }
     },
     {
@@ -201,37 +201,15 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-07 17:18:56",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 100,
-        "title": "10",
-        "category": "奇幻",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 2,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/59737890154e4cf0895e1c42dab0ceb5.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
       "time": "2025-04-07 17:18:57",
       "detail": {
         "business_type": "Video",
-        "business_id": 90,
-        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
-        "category": "媒体娱乐",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 1,
+          "view_count": 6,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -239,7 +217,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/e3a55e4de5c24d6a8962bc6427e3be32.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c332e4949929425581d8278bdbf68e9f.mp4"
       }
     },
     {
@@ -262,6 +240,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c5728b2363d74278be7e2554d0a16126.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:57",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 90,
+        "title": "男人在乡下买下一块地，打造出令人惊叹的豪华三角别墅！",
+        "category": "媒体娱乐",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 1,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/e3a55e4de5c24d6a8962bc6427e3be32.mp4"
       }
     },
     {
@@ -336,28 +336,6 @@
       "time": "2025-04-07 17:18:58",
       "detail": {
         "business_type": "Video",
-        "business_id": 82,
-        "title": "17",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c15a83dd0fec4fc39d32eb80bcfb512b.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-07 17:18:58",
-      "detail": {
-        "business_type": "Video",
         "business_id": 81,
         "title": "16",
         "category": "爱情",
@@ -372,6 +350,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/be866f4a132d4301b4df6e09a901ab52.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c15a83dd0fec4fc39d32eb80bcfb512b.mp4"
       }
     },
     {
@@ -402,28 +402,6 @@
       "time": "2025-04-07 17:18:59",
       "detail": {
         "business_type": "Video",
-        "business_id": 76,
-        "title": "11",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0b562abee65243528bea8a16f76e8243.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-07 17:18:59",
-      "detail": {
-        "business_type": "Video",
         "business_id": 77,
         "title": "12",
         "category": "爱情",
@@ -446,9 +424,9 @@
       "time": "2025-04-07 17:18:59",
       "detail": {
         "business_type": "Video",
-        "business_id": 58,
-        "title": "20",
-        "category": "古装",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
         "comments_count": 0,
         "intro_stats": {
           "view_count": 0,
@@ -459,7 +437,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c0cf398f16104031ae52adf761a4d35d.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0b562abee65243528bea8a16f76e8243.mp4"
       }
     },
     {
@@ -482,6 +460,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/015836f4565f4b31b3c5aeb4ebfd5d27.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:18:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 58,
+        "title": "20",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c0cf398f16104031ae52adf761a4d35d.mp4"
       }
     },
     {
@@ -578,12 +578,12 @@
       "time": "2025-04-07 17:19:01",
       "detail": {
         "business_type": "Video",
-        "business_id": 41,
-        "title": "3",
+        "business_id": 45,
+        "title": "7",
         "category": "古装",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 5,
+          "view_count": 2,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -591,7 +591,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/d6cb0b2192944a74874833208c231771.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b9b50d7409364f9ba89ecbf27a6361f7.mp4"
       }
     },
     {
@@ -614,6 +614,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c2d57badaccb473ab5361d5f614a6df0.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:01",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 41,
+        "title": "3",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 5,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/d6cb0b2192944a74874833208c231771.mp4"
       }
     },
     {
@@ -663,23 +685,23 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-07 17:19:01",
+      "time": "2025-04-07 17:19:02",
       "detail": {
         "business_type": "Video",
-        "business_id": 45,
-        "title": "7",
-        "category": "古装",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 2,
+          "view_count": 46,
           "comment_count": 0,
           "praise_count": 0,
-          "collect_count": 0,
+          "collect_count": 1,
           "forward_count": 0
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b9b50d7409364f9ba89ecbf27a6361f7.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b3462a454c0647a19794d1311ca1e6df.mp4"
       }
     },
     {
@@ -710,20 +732,20 @@
       "time": "2025-04-07 17:19:02",
       "detail": {
         "business_type": "Video",
-        "business_id": 120,
-        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
-        "category": "旅游",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 46,
+          "view_count": 6,
           "comment_count": 0,
           "praise_count": 0,
-          "collect_count": 1,
+          "collect_count": 0,
           "forward_count": 0
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b3462a454c0647a19794d1311ca1e6df.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/81b879e405854d448837b8eb47e80aa7.mp4"
       }
     },
     {
@@ -746,28 +768,6 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ef5747070b4f42ff9d89dd2ccb08b4b6.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-07 17:19:02",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 106,
-        "title": "16",
-        "category": "奇幻",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 6,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/81b879e405854d448837b8eb47e80aa7.mp4"
       }
     },
     {
@@ -1106,28 +1106,6 @@
       "time": "2025-04-07 17:19:06",
       "detail": {
         "business_type": "Video",
-        "business_id": 57,
-        "title": "19",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-07 17:19:06",
-      "detail": {
-        "business_type": "Video",
         "business_id": 53,
         "title": "15",
         "category": "古装",
@@ -1142,6 +1120,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-07 17:19:06",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
       }
     },
     {
@@ -1216,12 +1216,12 @@
       "time": "2025-04-07 17:19:07",
       "detail": {
         "business_type": "Video",
-        "business_id": 45,
-        "title": "7",
+        "business_id": 41,
+        "title": "3",
         "category": "古装",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 2,
+          "view_count": 5,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -1229,7 +1229,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b9b50d7409364f9ba89ecbf27a6361f7.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/d6cb0b2192944a74874833208c231771.mp4"
       }
     },
     {
@@ -1260,12 +1260,12 @@
       "time": "2025-04-07 17:19:07",
       "detail": {
         "business_type": "Video",
-        "business_id": 41,
-        "title": "3",
+        "business_id": 45,
+        "title": "7",
         "category": "古装",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 5,
+          "view_count": 2,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -1273,7 +1273,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/d6cb0b2192944a74874833208c231771.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b9b50d7409364f9ba89ecbf27a6361f7.mp4"
       }
     },
     {
@@ -1323,28 +1323,6 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-08 15:34:10",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 120,
-        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
-        "category": "旅游",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 46,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 1,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b3462a454c0647a19794d1311ca1e6df.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
       "time": "2025-04-08 15:34:11",
       "detail": {
         "business_type": "Video",
@@ -1362,6 +1340,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ef5747070b4f42ff9d89dd2ccb08b4b6.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:10",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 46,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 1,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b3462a454c0647a19794d1311ca1e6df.mp4"
       }
     },
     {
@@ -1433,28 +1433,6 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-08 15:34:11",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 96,
-        "title": "6",
-        "category": "奇幻",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 6,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c332e4949929425581d8278bdbf68e9f.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
       "time": "2025-04-08 15:34:12",
       "detail": {
         "business_type": "Video",
@@ -1472,6 +1450,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c5728b2363d74278be7e2554d0a16126.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:11",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 96,
+        "title": "6",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 6,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c332e4949929425581d8278bdbf68e9f.mp4"
       }
     },
     {
@@ -1516,28 +1516,6 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/784e0f7db4874748b89dd98e7a029815.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-08 15:34:13",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 84,
-        "title": "19",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/59618638890c4e6fa6f3bb530ebc19b3.mp4"
       }
     },
     {
@@ -1590,6 +1568,28 @@
       "time": "2025-04-08 15:34:13",
       "detail": {
         "business_type": "Video",
+        "business_id": 84,
+        "title": "19",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/59618638890c4e6fa6f3bb530ebc19b3.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:13",
+      "detail": {
+        "business_type": "Video",
         "business_id": 81,
         "title": "16",
         "category": "爱情",
@@ -1631,28 +1631,6 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-08 15:34:14",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 76,
-        "title": "11",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0b562abee65243528bea8a16f76e8243.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
       "time": "2025-04-08 15:34:13",
       "detail": {
         "business_type": "Video",
@@ -1670,6 +1648,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ab7e6c27b0b740f9b1e620884a27d2f5.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:14",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0b562abee65243528bea8a16f76e8243.mp4"
       }
     },
     {
@@ -1700,28 +1700,6 @@
       "time": "2025-04-08 15:34:14",
       "detail": {
         "business_type": "Video",
-        "business_id": 58,
-        "title": "20",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c0cf398f16104031ae52adf761a4d35d.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-08 15:34:14",
-      "detail": {
-        "business_type": "Video",
         "business_id": 57,
         "title": "19",
         "category": "古装",
@@ -1741,15 +1719,15 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-08 15:34:15",
+      "time": "2025-04-08 15:34:14",
       "detail": {
         "business_type": "Video",
-        "business_id": 52,
-        "title": "14",
+        "business_id": 58,
+        "title": "20",
         "category": "古装",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 1,
+          "view_count": 0,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -1757,7 +1735,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0fe4621e192b423586b01427abde524f.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c0cf398f16104031ae52adf761a4d35d.mp4"
       }
     },
     {
@@ -1802,6 +1780,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0a63b99e600e480e94266d8dbb2130c4.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:15",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 52,
+        "title": "14",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 1,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0fe4621e192b423586b01427abde524f.mp4"
       }
     },
     {
@@ -1983,28 +1983,6 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-08 15:34:17",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 106,
-        "title": "16",
-        "category": "奇幻",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 6,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/81b879e405854d448837b8eb47e80aa7.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
       "time": "2025-04-08 15:34:18",
       "detail": {
         "business_type": "Video",
@@ -2022,6 +2000,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/46fa4759e7e047c2b5af0aa0c983359c.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:17",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 106,
+        "title": "16",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 6,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/81b879e405854d448837b8eb47e80aa7.mp4"
       }
     },
     {
@@ -2118,28 +2118,6 @@
       "time": "2025-04-08 15:34:19",
       "detail": {
         "business_type": "Video",
-        "business_id": 85,
-        "title": "20",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/be56b78b13ac4fceb4a836b42b901255.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-08 15:34:19",
-      "detail": {
-        "business_type": "Video",
         "business_id": 87,
         "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
         "category": "海外生活",
@@ -2154,6 +2132,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/784e0f7db4874748b89dd98e7a029815.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:19",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 85,
+        "title": "20",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/be56b78b13ac4fceb4a836b42b901255.mp4"
       }
     },
     {
@@ -2228,28 +2228,6 @@
       "time": "2025-04-08 15:34:20",
       "detail": {
         "business_type": "Video",
-        "business_id": 78,
-        "title": "13",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ac840966b15748b1b577c50cd089617e.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-08 15:34:20",
-      "detail": {
-        "business_type": "Video",
         "business_id": 77,
         "title": "12",
         "category": "爱情",
@@ -2264,6 +2242,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ab7e6c27b0b740f9b1e620884a27d2f5.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:20",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 78,
+        "title": "13",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ac840966b15748b1b577c50cd089617e.mp4"
       }
     },
     {
@@ -2338,28 +2338,6 @@
       "time": "2025-04-08 15:34:21",
       "detail": {
         "business_type": "Video",
-        "business_id": 53,
-        "title": "15",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 1,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-08 15:34:21",
-      "detail": {
-        "business_type": "Video",
         "business_id": 57,
         "title": "19",
         "category": "古装",
@@ -2374,6 +2352,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-08 15:34:21",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 1,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
       }
     },
     {
@@ -2932,28 +2932,6 @@
       "time": "2025-04-09 14:44:49",
       "detail": {
         "business_type": "Video",
-        "business_id": 57,
-        "title": "19",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-09 14:44:49",
-      "detail": {
-        "business_type": "Video",
         "business_id": 58,
         "title": "20",
         "category": "古装",
@@ -2976,12 +2954,12 @@
       "time": "2025-04-09 14:44:49",
       "detail": {
         "business_type": "Video",
-        "business_id": 53,
-        "title": "15",
+        "business_id": 57,
+        "title": "19",
         "category": "古装",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 1,
+          "view_count": 0,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -2989,7 +2967,7 @@
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
       }
     },
     {
@@ -3012,6 +2990,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0fe4621e192b423586b01427abde524f.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:49",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 1,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
       }
     },
     {
@@ -3416,28 +3416,6 @@
       "time": "2025-04-09 14:44:54",
       "detail": {
         "business_type": "Video",
-        "business_id": 82,
-        "title": "17",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c15a83dd0fec4fc39d32eb80bcfb512b.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-09 14:44:54",
-      "detail": {
-        "business_type": "Video",
         "business_id": 81,
         "title": "16",
         "category": "爱情",
@@ -3452,6 +3430,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/be866f4a132d4301b4df6e09a901ab52.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 82,
+        "title": "17",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c15a83dd0fec4fc39d32eb80bcfb512b.mp4"
       }
     },
     {
@@ -3482,28 +3482,6 @@
       "time": "2025-04-09 14:44:54",
       "detail": {
         "business_type": "Video",
-        "business_id": 76,
-        "title": "11",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0b562abee65243528bea8a16f76e8243.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-09 14:44:54",
-      "detail": {
-        "business_type": "Video",
         "business_id": 77,
         "title": "12",
         "category": "爱情",
@@ -3518,6 +3496,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ab7e6c27b0b740f9b1e620884a27d2f5.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:54",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 76,
+        "title": "11",
+        "category": "爱情",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0b562abee65243528bea8a16f76e8243.mp4"
       }
     },
     {
@@ -3589,28 +3589,6 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-09 14:44:55",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 53,
-        "title": "15",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 1,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
       "time": "2025-04-09 14:44:56",
       "detail": {
         "business_type": "Video",
@@ -3628,6 +3606,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/0fe4621e192b423586b01427abde524f.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-09 14:44:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 1,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
       }
     },
     {
@@ -3768,6 +3768,28 @@
       "time": "2025-04-11 14:34:50",
       "detail": {
         "business_type": "Video",
+        "business_id": 120,
+        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "category": "旅游",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 46,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 1,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b3462a454c0647a19794d1311ca1e6df.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:50",
+      "detail": {
+        "business_type": "Video",
         "business_id": 123,
         "title": "大唐小神探-第2集",
         "category": "古装",
@@ -3790,20 +3812,20 @@
       "time": "2025-04-11 14:34:50",
       "detail": {
         "business_type": "Video",
-        "business_id": 120,
-        "title": "男人耗费上百棵云杉，为家人打造出豪华二层木屋！",
+        "business_id": 112,
+        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
         "category": "旅游",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 46,
+          "view_count": 2,
           "comment_count": 0,
           "praise_count": 0,
-          "collect_count": 1,
+          "collect_count": 0,
           "forward_count": 0
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b3462a454c0647a19794d1311ca1e6df.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ef5747070b4f42ff9d89dd2ccb08b4b6.mp4"
       }
     },
     {
@@ -3826,28 +3848,6 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/81b879e405854d448837b8eb47e80aa7.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:34:50",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 112,
-        "title": "男人将报废校车改装成顶级房车，成功带老婆环游世界！",
-        "category": "旅游",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 2,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ef5747070b4f42ff9d89dd2ccb08b4b6.mp4"
       }
     },
     {
@@ -3966,28 +3966,6 @@
       "time": "2025-04-11 14:34:52",
       "detail": {
         "business_type": "Video",
-        "business_id": 87,
-        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
-        "category": "海外生活",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 6,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/784e0f7db4874748b89dd98e7a029815.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:34:52",
-      "detail": {
-        "business_type": "Video",
         "business_id": 85,
         "title": "20",
         "category": "爱情",
@@ -4002,6 +3980,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/be56b78b13ac4fceb4a836b42b901255.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:52",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 6,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/784e0f7db4874748b89dd98e7a029815.mp4"
       }
     },
     {
@@ -4076,28 +4076,6 @@
       "time": "2025-04-11 14:34:53",
       "detail": {
         "business_type": "Video",
-        "business_id": 77,
-        "title": "12",
-        "category": "爱情",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ab7e6c27b0b740f9b1e620884a27d2f5.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:34:53",
-      "detail": {
-        "business_type": "Video",
         "business_id": 78,
         "title": "13",
         "category": "爱情",
@@ -4117,23 +4095,23 @@
     {
       "user_id": "1",
       "action": "view_detail",
-      "time": "2025-04-11 14:34:54",
+      "time": "2025-04-11 14:34:53",
       "detail": {
         "business_type": "Video",
-        "business_id": 60,
-        "title": "男人在原始森林2个半月，搭建气派的海景别",
-        "category": "汽车出行",
+        "business_id": 77,
+        "title": "12",
+        "category": "爱情",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 3,
+          "view_count": 0,
           "comment_count": 0,
-          "praise_count": 1,
+          "praise_count": 0,
           "collect_count": 0,
           "forward_count": 0
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/015836f4565f4b31b3c5aeb4ebfd5d27.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/ab7e6c27b0b740f9b1e620884a27d2f5.mp4"
       }
     },
     {
@@ -4164,6 +4142,28 @@
       "time": "2025-04-11 14:34:54",
       "detail": {
         "business_type": "Video",
+        "business_id": 60,
+        "title": "男人在原始森林2个半月，搭建气派的海景别",
+        "category": "汽车出行",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 3,
+          "comment_count": 0,
+          "praise_count": 1,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/015836f4565f4b31b3c5aeb4ebfd5d27.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:54",
+      "detail": {
+        "business_type": "Video",
         "business_id": 58,
         "title": "20",
         "category": "古装",
@@ -4186,28 +4186,6 @@
       "time": "2025-04-11 14:34:55",
       "detail": {
         "business_type": "Video",
-        "business_id": 53,
-        "title": "15",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 1,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:34:55",
-      "detail": {
-        "business_type": "Video",
         "business_id": 57,
         "title": "19",
         "category": "古装",
@@ -4222,6 +4200,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:55",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 53,
+        "title": "15",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 1,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c4939014fbc84fd08b8cf3d673f58ac7.mp4"
       }
     },
     {
@@ -4450,28 +4450,6 @@
       "time": "2025-04-11 14:34:58",
       "detail": {
         "business_type": "Video",
-        "business_id": 103,
-        "title": "13",
-        "category": "奇幻",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 3,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/46fa4759e7e047c2b5af0aa0c983359c.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:34:58",
-      "detail": {
-        "business_type": "Video",
         "business_id": 106,
         "title": "16",
         "category": "奇幻",
@@ -4486,6 +4464,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/81b879e405854d448837b8eb47e80aa7.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:58",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 103,
+        "title": "13",
+        "category": "奇幻",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 3,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/46fa4759e7e047c2b5af0aa0c983359c.mp4"
       }
     },
     {
@@ -4516,28 +4516,6 @@
       "time": "2025-04-11 14:34:59",
       "detail": {
         "business_type": "Video",
-        "business_id": 91,
-        "title": "1",
-        "category": "奇幻",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 58,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 1,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c5728b2363d74278be7e2554d0a16126.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:34:59",
-      "detail": {
-        "business_type": "Video",
         "business_id": 96,
         "title": "6",
         "category": "奇幻",
@@ -4560,20 +4538,20 @@
       "time": "2025-04-11 14:34:59",
       "detail": {
         "business_type": "Video",
-        "business_id": 87,
-        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
-        "category": "海外生活",
+        "business_id": 91,
+        "title": "1",
+        "category": "奇幻",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 6,
+          "view_count": 58,
           "comment_count": 0,
           "praise_count": 0,
-          "collect_count": 0,
+          "collect_count": 1,
           "forward_count": 0
         },
         "duration": 0,
         "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/784e0f7db4874748b89dd98e7a029815.mp4"
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c5728b2363d74278be7e2554d0a16126.mp4"
       }
     },
     {
@@ -4596,6 +4574,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/e3a55e4de5c24d6a8962bc6427e3be32.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:34:59",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 87,
+        "title": "男人收集上百棵百年云杉，打造出超大的豪华木屋！",
+        "category": "海外生活",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 6,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/784e0f7db4874748b89dd98e7a029815.mp4"
       }
     },
     {
@@ -4780,28 +4780,6 @@
       "time": "2025-04-11 14:35:02",
       "detail": {
         "business_type": "Video",
-        "business_id": 57,
-        "title": "19",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 0,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:35:02",
-      "detail": {
-        "business_type": "Video",
         "business_id": 58,
         "title": "20",
         "category": "古装",
@@ -4816,6 +4794,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/c0cf398f16104031ae52adf761a4d35d.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:02",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 57,
+        "title": "19",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 0,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/41081730ba934c53b9ac7056d6441a27.mp4"
       }
     },
     {
@@ -4926,28 +4926,6 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/b9b50d7409364f9ba89ecbf27a6361f7.mp4"
-      }
-    },
-    {
-      "user_id": "1",
-      "action": "view_detail",
-      "time": "2025-04-11 14:35:03",
-      "detail": {
-        "business_type": "Video",
-        "business_id": 42,
-        "title": "4",
-        "category": "古装",
-        "comments_count": 0,
-        "intro_stats": {
-          "view_count": 3,
-          "comment_count": 0,
-          "praise_count": 0,
-          "collect_count": 0,
-          "forward_count": 0
-        },
-        "duration": 0,
-        "cover_url": null,
-        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/643f3e6d961b4e8cb7dd38c95f81ff64.mp4"
       }
     },
     {
@@ -4970,6 +4948,28 @@
         "duration": 0,
         "cover_url": null,
         "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/d6cb0b2192944a74874833208c231771.mp4"
+      }
+    },
+    {
+      "user_id": "1",
+      "action": "view_detail",
+      "time": "2025-04-11 14:35:03",
+      "detail": {
+        "business_type": "Video",
+        "business_id": 42,
+        "title": "4",
+        "category": "古装",
+        "comments_count": 0,
+        "intro_stats": {
+          "view_count": 3,
+          "comment_count": 0,
+          "praise_count": 0,
+          "collect_count": 0,
+          "forward_count": 0
+        },
+        "duration": 0,
+        "cover_url": null,
+        "video_url": "https://sohugloba.oss-cn-beijing.aliyuncs.com/2024/04/27/643f3e6d961b4e8cb7dd38c95f81ff64.mp4"
       }
     },
     {
@@ -5005,7 +5005,7 @@
         "category": "房产",
         "comments_count": 1,
         "intro_stats": {
-          "view_count": 8,
+          "view_count": 11,
           "comment_count": 1,
           "praise_count": 1,
           "collect_count": 0,
@@ -5027,7 +5027,7 @@
         "category": "历史",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 25,
+          "view_count": 32,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -5049,7 +5049,7 @@
         "category": "海外生活",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 3,
+          "view_count": 6,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -5071,7 +5071,7 @@
         "category": "五养健康",
         "comments_count": 0,
         "intro_stats": {
-          "view_count": 3,
+          "view_count": 6,
           "comment_count": 0,
           "praise_count": 0,
           "collect_count": 0,
@@ -5083,5 +5083,5 @@
       }
     }
   ],
-  "last_update": "2025-04-15T16:28:36.904076"
+  "last_update": "2025-05-07T16:20:19.883946"
 }

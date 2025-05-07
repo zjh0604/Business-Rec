@@ -42,7 +42,10 @@ class SohuGlobalAPI:
                 "pageNum": page_num,
                 "type": type
             }
-            headers = {"Authorization": self.access_token}
+            headers = {
+                "Authorization": self.access_token,
+                "version": "1.5.2"
+            }
             
             response = requests.get(url, params=params, headers=headers)
             if response.status_code == 200:
@@ -67,7 +70,10 @@ class SohuGlobalAPI:
             if busy_type:
                 params["busyType"] = busy_type
 
-            headers = {"Authorization": self.access_token}
+            headers = {
+                "Authorization": self.access_token,
+                "version": "1.5.2"
+            }
             
             response = requests.get(url, params=params, headers=headers)
             if response.status_code == 200:
@@ -84,7 +90,10 @@ class SohuGlobalAPI:
                 return None
 
             url = f"{self.base_url}/app/api/content/video/{busy_code}"
-            headers = {"Authorization": self.access_token}
+            headers = {
+                "Authorization": self.access_token,
+                "version": "1.5.2"
+            }
             
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
@@ -110,7 +119,10 @@ class SohuGlobalAPI:
             if opera_type:
                 params["operaType"] = opera_type
 
-            headers = {"Authorization": self.access_token}
+            headers = {
+                "Authorization": self.access_token,
+                "version": "1.5.2"
+            }
             
             response = requests.get(url, params=params, headers=headers)
             if response.status_code == 200:

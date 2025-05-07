@@ -108,17 +108,36 @@ class PersonalityScoreCalculator:
             logger.error(f"计算性格特征得分时出错: {str(e)}")
             return current_score
 
+    def save_scores_to_db(self, user_id: int, new_scores: dict, db_path="user.db"):
+        """将新分数写入数据库"""
+        try:
+            import sqlite3
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            set_clause = ", ".join([f"{trait} = ?" for trait in new_scores.keys()])
+            sql = f"UPDATE personality SET {set_clause} WHERE id = ?"
+            values = list(new_scores.values()) + [user_id]
+            cursor.execute(sql, values)
+            conn.commit()
+            conn.close()
+            logger.info(f"用户{user_id}的新分数已写入数据库")
+        except Exception as e:
+            logger.error(f"写入数据库时出错: {e}")
+
     def update_personality_scores(self, 
                                 behavior_summary: Dict, 
-                                current_scores: Dict[str, float]) -> Dict[str, float]:
-        """更新所有性格特征分数"""
+                                current_scores: Dict[str, float],
+                                user_id: int = None,
+                                db_path: str = "user.db") -> Dict[str, float]:
+        """更新所有性格特征分数，并写回数据库（如果user_id提供）"""
         updated_scores = {}
-        
         for trait, current_score in current_scores.items():
             updated_scores[trait] = self.calculate_trait_score(
                 trait, behavior_summary, current_score
             )
-        
+        # 如果提供了user_id，则写回数据库
+        if user_id is not None:
+            self.save_scores_to_db(user_id, updated_scores, db_path)
         return updated_scores
 
     def get_score_change_reasons(self, 

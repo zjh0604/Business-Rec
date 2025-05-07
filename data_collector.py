@@ -54,7 +54,7 @@ class APITokenManager:
             "phone": "admin",
             "code": "",
             "loginType": "PASSWORD",
-            "password": "sohu888888#",
+            "password": "U9xbHDJUH1pmx9hk7nXbQQ==",
             "userName": "admin"
         }
         async with aiohttp.ClientSession() as session:
@@ -135,7 +135,8 @@ class DataCollector:
                 token = await APITokenManager.get_token()
                 headers = {
                     "Authorization": f"Bearer {token}",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "version": "1.5.2"
                 }
 
                 async with self._get_session() as session:
@@ -536,7 +537,7 @@ async def main():
     collector = DataCollector(batch_size=1000)
 
     # 要采集的用户ID列表
-    user_ids = [1, 8]  # 要采集的用户ID列表
+    user_ids = [1,8]  # 要采集的用户ID列表
 
     # 处理每个用户的数据
     for user_id in user_ids:
