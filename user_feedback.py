@@ -3,6 +3,7 @@ import sqlite3
 import logging
 from datetime import datetime, timedelta
 import numpy as np
+import os
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
@@ -309,6 +310,7 @@ class UserFeedback:
                     continue
                 
                 # 获取用户当前分数
+                logger.info(f"Using database at: {os.path.abspath(self.db_path)}")
                 cursor.execute("SELECT * FROM personality WHERE id = ?", (user_id,))
                 columns = [description[0] for description in cursor.description]
                 current_scores = dict(zip(columns[1:], cursor.fetchone()[1:]))

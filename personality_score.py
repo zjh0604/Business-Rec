@@ -2,7 +2,9 @@ import numpy as np
 from datetime import datetime, timedelta
 import logging
 from typing import Dict, List, Any
+import os
 
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 class PersonalityScoreCalculator:
@@ -66,6 +68,9 @@ class PersonalityScoreCalculator:
                             current_score: float) -> float:
         """计算特定性格特征的得分"""
         try:
+            # 修复：如果 current_score 为 None，赋默认值 0.0
+            if current_score is None:
+                current_score = 0.0
             # 获取该性格特征相关的所有行为
             trait_behaviors = behavior_summary.get('trait_analysis', {}).get(trait, {})
             
@@ -109,7 +114,8 @@ class PersonalityScoreCalculator:
             return current_score
 
     def save_scores_to_db(self, user_id: int, new_scores: dict, db_path="user.db"):
-        """将新分数写入数据库"""
+        logger.warning("save_scores_to_db called!")
+        logger.info(f"Using database at: {os.path.abspath(db_path)}")
         try:
             import sqlite3
             conn = sqlite3.connect(db_path)
@@ -119,24 +125,24 @@ class PersonalityScoreCalculator:
             values = list(new_scores.values()) + [user_id]
             cursor.execute(sql, values)
             conn.commit()
-            conn.close()
             logger.info(f"用户{user_id}的新分数已写入数据库")
         except Exception as e:
             logger.error(f"写入数据库时出错: {e}")
+        finally:
+            conn.close()
 
     def update_personality_scores(self, 
                                 behavior_summary: Dict, 
                                 current_scores: Dict[str, float],
-                                user_id: int = None,
+                                user_id: int,
                                 db_path: str = "user.db") -> Dict[str, float]:
-        """更新所有性格特征分数，并写回数据库（如果user_id提供）"""
+        """更新所有性格特征分数，并在每次trait分数更新后写回数据库"""
         updated_scores = {}
         for trait, current_score in current_scores.items():
             updated_scores[trait] = self.calculate_trait_score(
                 trait, behavior_summary, current_score
             )
-        # 如果提供了user_id，则写回数据库
-        if user_id is not None:
+            # 每次trait分数更新后立即写回数据库
             self.save_scores_to_db(user_id, updated_scores, db_path)
         return updated_scores
 
