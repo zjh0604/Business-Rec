@@ -462,7 +462,11 @@ async def process_user_analysis(user_id):
         
         # 使用性格分数计算器计算新分数
         calculator = PersonalityScoreCalculator()
-        new_scores = calculator.update_personality_scores(behavior_summary, initial_scores)
+        new_scores = calculator.update_personality_scores(
+            behavior_summary=behavior_summary,
+            current_scores=initial_scores,
+            user_id=user_id
+        )
         logger.debug(f"Updated scores: {new_scores}")
         
         # 生成更新原因
@@ -581,7 +585,18 @@ async def process_user_analysis(user_id):
                                 f"comparison_heatmap_{user_id}.png")
 
         # 获取推荐内容
-        recommended_items = content_manager.get_recommendations(new_scores)
+        logger.debug("Getting recommendations")
+        # 将 update_reasons 添加到 personality_data 中
+        personality_data_with_reasons = {
+            **new_scores,  # 包含所有性格特征分数
+            'update_reasons': update_reasons  # 添加更新原因
+        }
+        logger.debug(f"Personality data with reasons: {personality_data_with_reasons}")
+        logger.debug(f"Update reasons before passing to get_recommendations: {update_reasons}")
+        recommended_items = content_manager.get_recommendations(
+            personality_data=personality_data_with_reasons,
+            user_id=user_id
+        )
 
         return {
             'success': True,
