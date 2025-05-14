@@ -19,5 +19,110 @@
         "Classification of wishes": "贸易",
         "Wish title": "寻求优质道地药材供应商",
         "Details of the wish": "寻找具有GAP认证的道地药材供应商，要求能提供稳定的货源，月供应量不低于10吨，价格具有市场竞争力"
+    },
+    {
+        "user_id": "2010",
+        "Corresponding role": "​​中药种植合作社",
+        "Classification of wishes": "生意合作",
+        "Wish title": "寻求中药材采购企业签订长期订单",
+        "Details of the wish": "我们拥有200亩有机认证种植基地,月均产能达800kg枸杞/黄精等道地品种,每批次提供SGS农残检测报告原件,可按季度结算并提供种植过程溯源影像记录"
+    },
+    {
+        "user_id": "2011",
+        "Corresponding role": "中药材供应商​​",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供有机中药材批量直供服务",
+        "Details of the wish": "持有GAP/GMP双认证资质,提供药典标准检测实验室报告,500kg起订价格下浮15%,接受账期需预付10%保证金,配备专业炮制加工车间"
+    },
+    {
+        "user_id": "2012",
+        "Corresponding role": "商贸公司​​",
+        "Classification of wishes": "生意合作",
+        "Wish title": "药膳产品区域经销服务",
+        "Details of the wish": "五年以上快消品渠道经验要求；需承诺每月3次终端巡店频率；合作开设10个以上商超体验专柜；配合开展季度主题促销方案"
+    },
+    {
+        "user_id": "2013",
+        "Corresponding role": "​​保健食品OEM厂商",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供保健食品灵活代工",
+        "Details of the wish": "需持有SC认证且具备食字号申报能力；冲剂生产线需有3层独立包装设备；支持最小起订量200kg/剂型（试样期减免）；要求成品留样室温湿度24小时监控；接受客户自带原料并提供检验报告；首批订单验收合格后10个工作日内结清费用"
+    },
+    {
+        "user_id": "2014",
+        "Corresponding role": "​​物流服务商",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供长三角次日达冷链专线",
+        "Details of the wish": "1. 已建成上海/南京/杭州等8个城市冷链分仓,2. 所有运输车辆配备双制冷机组及GPS温控系统,3. 使用电子温度标签每30分钟自动记录,4. 承诺全年平均损坏率≤0.3%"
+    },
+    {
+        "user_id": "2015",
+        "Corresponding role": "​​包装设计公司",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供中医药主题包装设计方案",
+        "Details of the wish": "需完成药膳系列包装主视觉设计,设计要求深度融合中医药文化符号,提供3版不同风格的方案备选,外包装需明确标识食药物质成分,包含整套VI源文件及使用规范,要求2周内完成初稿并提供3次修改机会,验收合格后付款总费用3万元"
+    },
+    {
+        "user_id": "2016",
+        "Corresponding role": "第三方检测机构​​",
+        "Classification of wishes": "产学研",
+        "Wish title": "提供CMA认证检测服务",
+        "Details of the wish": "1. 接受食药同源原料重金属/农药残留/有效成分检测,2.承诺10个工作日内出具CMA认证报告,3. 按检测项目单价收费(如农残检测XX元/批次),4. 首次合作赠送3个样品免费检项任选,5. 需提前确认原料保存运输规范"
+    },
+    {
+        "user_id": "2017",
+        "Corresponding role": "​​设备租赁公司",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供30-100g自动分装设备租赁",
+        "Details of the wish": "1、完成部署并验收后支付租金,2、设备规格含30g/50g/100g三种型号,3、月租金不超过1.2万元且有季度折扣,4、每周提供2次设备状态远程监测,5、季度免费更换易损配件和润滑油保养"
+    },
+    {
+        "user_id": "2018",
+        "Corresponding role": "贸易公司​​",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供东南亚华人社区分销渠道",
+        "Details of the wish": "有现成分销网络覆盖马来西亚、新加坡华人商圈,已完成产品市场准入备案,可配合完成资质文件备案(需提供产品成分报告),支持200kg以上首单试销,结算方式为CIF条款,货款到账后发货,渠道拓展成功后再付服务费"
+    },
+    {
+        "user_id": "2019",
+        "Corresponding role": "药膳餐厅​​",
+        "Classification of wishes": "生意合作",
+        "Wish title": "开发功能性药膳食疗方案",
+        "Details of the wish": "需中医与营养学双专家参与,重点解决季节性体质调理需求,方案需通过实验室成分检测,接受按阶段性成果分三次付款,要求提供临床效果追踪报告,首期交付5款基础配方"
+    },
+    {
+        "user_id": "2020",
+        "Corresponding role": "​​健康管理公司",
+        "Classification of wishes": "健康养生",
+        "Wish title": "研发亚健康调理膳食体系",
+        "Details of the wish": "需包含代谢综合征改善方向,每款配方标注适用BMI区间,要求提供微量元素检测报告,接受配方通过第三方机构验证,验收后15个工作日内结算,要求提供3个月效果随访方案"
+    },
+    {
+        "user_id": "2021",
+        "Corresponding role": "​​保健品生产商",
+        "Classification of wishes": "泛金融",
+        "Wish title": "开发食字号功能性配方",
+        "Details of the wish": "需符合备案制申报要求,配伍需有本草纲目出处,原材料成本控制在80元/公斤,要求提供中试生产方案,按市场测试效果支付奖金,需配套制定质量内控标准"
+    },
+    {
+        "user_id": "2022",
+        "Corresponding role": "​​自动化设备供应商",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供智能杀菌设备升级方案",
+        "Details of the wish": "需设计模块化改造方案适配现有产线布局,改造后杀菌效能需达140ppm浓度持续穿透,包含12课时设备操作培训(含远程指导),免费质保期不少于2年,设备运行数据对接工厂MES系统,验收达标30个工作日后结清全款"
+    },
+    {
+        "user_id": "2023",
+        "Corresponding role": "电商代运营公司​​",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供全链路电商代运营服务",
+        "Details of the wish": "完成验收后付费,提供美工设计优化:每款产品详情页制作≤3天,视觉转化率提升20%以上,7*16小时客服服务:响应时长≤15秒,纠纷处理率≥98%,站内外推广策划:月投入5万广告费获取1000+精准用户,月度提供流量来源分析及ROI报表"
+    },
+    {
+        "user_id": "2024",
+        "Corresponding role": "​​软件开发公司",
+        "Classification of wishes": "生意合作",
+        "Wish title": "提供定制ERP开发服务",
+        "Details of the wish": "需完成交付后再付款,基于您现有的仓库管理系统开发接口,保障3日内完成数据对接测试,生产排程系统开发颗粒度到工位级,日计划偏差率低于5%时自动提醒,开发周期锁定90日历日,超出每日赔付合同金额0.5%,试运行期间派驻实施顾问驻场,故障响应时间不超过2小时"
     }
 ] 
