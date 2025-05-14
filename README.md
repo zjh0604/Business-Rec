@@ -1,14 +1,12 @@
  # 个性化推荐系统
 
-这是一个基于 LLM 的个性化推荐系统，能够根据用户的行为和性格特征提供个性化的推荐。
+这是一个基于 LLM 的商单推荐系统
 
 ## 功能特点
 
-- 用户行为分析
-- 性格特征分析
 - 个性化推荐
-- 用户管理界面
-- 数据可视化
+- 用户界面
+
 
 ## 技术栈
 
@@ -29,19 +27,22 @@ git clone [你的仓库URL]
 ```bash
 pip install -r requirements.txt
 ```
+3.下载嵌入模型
+```bash
+git lfs install
+
+git clone https://www.modelscope.cn/thomas/text2vec-base-chinese.git (可换为其他嵌入模型)
+```
 
 3. 运行应用：
 ```bash
-python web_app.py
+python business_web_app.py
 ```
 
 ## 使用说明
 
-1. 访问主页：http://localhost:8080
-2. 在用户管理页面可以查看所有用户
-3. 点击"查看性格"可以查看用户的性格特征分布
-4. 点击"查看波动"可以查看用户最近的性格变化
-5. 点击"CURD"可以进行用户操作
+1. 访问主页：http://localhost:5000
+
 
 ## 项目结构
 
