@@ -20,6 +20,29 @@ os.makedirs("output", exist_ok=True)
 init_business_db()
 vector_db = init_business_vector_db()
 
+FIELD_MAP = {
+    "user_id": ["user_id", "User ID"],
+    "wish_title": ["wish_title", "Wish title"],
+    "corresponding_role": ["corresponding_role", "Corresponding role"],
+    "classification": ["classification", "Classification of wishes"],
+    "wish_details": ["wish_details", "Details of the wish"],
+}
+
+def _get_field(order, key):
+    for k in FIELD_MAP.get(key, [key]):
+        if k in order:
+            return order[k]
+    return None
+
+def normalize_order_fields(order):
+    return {
+        "user_id": _get_field(order, "user_id"),
+        "wish_title": _get_field(order, "wish_title"),
+        "corresponding_role": _get_field(order, "corresponding_role"),
+        "classification": _get_field(order, "classification"),
+        "wish_details": _get_field(order, "wish_details"),
+    }
+
 @app.route('/')
 async def index():
     """首页"""
@@ -45,26 +68,28 @@ async def get_orders():
 
 @app.route('/api/business/orders/<user_id>', methods=['GET'])
 async def get_user_orders(user_id):
-    """获取指定用户的商单并返回推荐"""
+    """获取指定用户的商单并返回推荐（直接从 user_orders.json 读取）"""
     try:
-        # 获取用户的商单
-        user_orders = get_business_orders_by_user(user_id)
+        # 直接从 user_orders.json 读取用户商单
+        with open('user_orders.json', 'r', encoding='utf-8') as f:
+            all_user_orders = json.load(f)
+        user_orders = [order for order in all_user_orders if _get_field(order, 'user_id') == user_id]
         if not user_orders:
             return jsonify({"success": False, "error": "未找到该用户的商单"})
 
         # 获取推荐商单
         recommended_orders = []
         for order in user_orders:
-            similar_orders = vector_db.find_similar_orders(order)
+            similar_orders = vector_db.find_similar_orders(order, n_results=20)
             # 过滤掉用户自己的商单
-            similar_orders = [o for o in similar_orders if o['user_id'] != user_id]
+            similar_orders = [o for o in similar_orders if _get_field(o, 'user_id') != user_id]
             recommended_orders.extend(similar_orders)
 
         # 去重并限制数量
         seen = set()
         unique_orders = []
         for order in recommended_orders:
-            order_id = f"{order['user_id']}_{order['wish_title']}"
+            order_id = f"{_get_field(order, 'user_id')}_{_get_field(order, 'wish_title')}"
             if order_id not in seen:
                 seen.add(order_id)
                 unique_orders.append(order)
@@ -73,8 +98,8 @@ async def get_user_orders(user_id):
 
         return jsonify({
             "success": True,
-            "user_orders": user_orders,
-            "recommended_orders": unique_orders
+            "user_orders": [normalize_order_fields(o) for o in user_orders],
+            "recommended_orders": [normalize_order_fields(o) for o in unique_orders]
         })
     except Exception as e:
         logger.error(f"Error getting user orders: {str(e)}")
